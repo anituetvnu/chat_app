@@ -1,15 +1,18 @@
-import React from "react";
-import {View, Text} from "react-native";
-import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import AntDesign from "react-native-vector-icons/AntDesign";
-import MessagesStackScreen from "./MessagesStackScreen/MessagesStackScreen";
-import SearchScreen from "./SearchScreen/SearchScreen";
-import CallStackScreen from "./CallStackScreen/CallStackScreen";
+import React from 'react';
+import {View, Text} from 'react-native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MessagesStackScreen from './MessagesStackScreen/MessagesStackScreen';
+import SearchScreen from './SearchScreen/SearchScreen';
+import AccountScreen from './AccountScreen/AccountScreen';
+import CallStackScreen from './CallStackScreen/CallStackScreen';
 
 const Tab = createBottomTabNavigator();
+
 const routeIcons = {
-  Messages: "message1",
-  Search: "earth",
+  Messages: 'message-text',
+  Search: 'account-box-multiple',
+  Account: 'account-settings',
 };
 
 const HomeBottomTabScreen = ({navigation, route}) => {
@@ -18,19 +21,17 @@ const HomeBottomTabScreen = ({navigation, route}) => {
       initialRouteName="MessagesStack"
       screenOptions={({route}) => ({
         tabBarIcon: ({focused}) => (
-          <AntDesign
+          <MaterialCommunityIcons
             name={routeIcons[route.name]}
             size={24}
-            color={focused ? "white" : "grey"}
+            color={focused ? 'rgb(72, 163, 255)' : 'grey'}
           />
         ),
       })}
       tabBarOptions={{
-        activeTintColor: "white",
-        inactiveTintColor: "grey",
-        activeBackgroundColor: "#2C98F0",
-        inactiveBackgroundColor: "#2C98F0",
-        keyboardHidesTabBar: "true",
+        activeTintColor: 'rgb(72, 163, 255)',
+        inactiveTintColor: 'grey',
+        keyboardHidesTabBar: 'true',
       }}>
       <Tab.Screen
         name="Messages"
@@ -42,8 +43,12 @@ const HomeBottomTabScreen = ({navigation, route}) => {
         component={SearchScreen}
         options={{headerShown: false}}
       />
-      <Tab.Screen name="Call" component={CallStackScreen} />
-      {/* <Tab.Screen name="Test" component={ TestScreen } /> */}
+      <Tab.Screen
+        name="Account"
+        component={AccountScreen}
+        options={{headerShown: false}}
+      />
+      {/* <Tab.Screen name="Call" component={CallStackScreen} /> */}
     </Tab.Navigator>
   );
 };
