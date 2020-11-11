@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "80447301594",
+    "firebase_url": "https://chat-app-f00c6.firebaseio.com",
+    "project_id": "chat-app-f00c6",
+    "storage_bucket": "chat-app-f00c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:80447301594:android:3ff480935d5d6c1d9d82e3",
+        "android_client_info": {
+          "package_name": "com.ngova.chat_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "80447301594-n0960stk1d6d4chhjem6j4kdkkm6vgn8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCy0lMt4spLrirC1ErDBJ5_ckw6hONElmI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "80447301594-n0960stk1d6d4chhjem6j4kdkkm6vgn8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:80447301594:android:b64edfb5211b17ce9d82e3",
+        "android_client_info": {
+          "package_name": "com.ngova.chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "80447301594-n0960stk1d6d4chhjem6j4kdkkm6vgn8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCy0lMt4spLrirC1ErDBJ5_ckw6hONElmI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "80447301594-n0960stk1d6d4chhjem6j4kdkkm6vgn8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
