@@ -86,7 +86,6 @@ const ConversationScreen = ({navigation, route}) => {
         console.log('key :', Object.keys(response));
         console.log('uri :', response.uri);
         console.log('filesize :', response.fileSize);
-        console.log('filesize :', response.fileSize);
 
         // console.log('data :', fileData);
       }
@@ -94,25 +93,19 @@ const ConversationScreen = ({navigation, route}) => {
   };
 
   const sendImage = async () => {
-    const filename = fileUri.substring(fileUri.lastIndexOf('/') + 1);
+    const filename = fileUri.substring(fileUri.lastIndexOf('%') + 1);
     const uri = await getPathForFirebaseStorage(fileUri);
-    const uploadTask = ref.putFile(uri);
+    const uploadTask = storage().ref(filename).putFile(uri);
 
-    // const task = storage()
-    //   .ref(filename)
-    //   .putFile(fileUri)
-    //   .then(() => console.log('done'))
-    //   .catch(console.log);
+    uploadTask.on('state_changed', (taskSnapshot) => {
+      console.log(
+        `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`,
+      );
+    });
 
-    // task.on('state_changed', (taskSnapshot) => {
-    //   console.log(
-    //     `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`,
-    //   );
-    // });
-
-    // task.then(() => {
-    //   console.log('Image uploaded to the bucket!');
-    // });
+    uploadTask.then(() => {
+      console.log('Image uploaded to the bucket!');
+    });
   };
 
   const renderFileData = () => {
