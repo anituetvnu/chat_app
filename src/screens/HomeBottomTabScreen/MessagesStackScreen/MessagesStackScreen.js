@@ -1,11 +1,11 @@
-import React from "react";
-import {TouchableOpacity} from "react-native";
-import {createStackNavigator} from "@react-navigation/stack";
-import Feather from "react-native-vector-icons/Feather";
+import React from 'react';
+import {TouchableOpacity} from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
+import Feather from 'react-native-vector-icons/Feather';
 
-import MessagesScreen from "./MessagesScreen/MessagesScreen";
-import ConversationScreen from "./ConversationScreen/ConversationScreen";
-import styles from "./styles";
+import MessagesScreen from './MessagesScreen/MessagesScreen';
+import ConversationScreen from './ConversationScreen/ConversationScreen';
+import styles from './styles';
 
 const Stack = createStackNavigator();
 
@@ -14,14 +14,15 @@ const MessagesStackScreen = ({navigation, route}) => {
     <Stack.Navigator
       initialRouteName="Add"
       screenOptions={{
-        headerStyle: {backgroundColor: "#2C98F0", height: 70},
+        headerStyle: {backgroundColor: 'rgb(72, 163, 255)', height: 50},
       }}>
       <Stack.Screen
         name="Messages"
         component={MessagesScreen}
         options={{
-          title: "Chat App",
-          headerTitleAlign: "center",
+          title: 'Chat App',
+          headerTitleAlign: 'center',
+          headerTintColor: 'white',
           headerLeft: (props) => (
             <TouchableOpacity>
               <Feather name="menu" style={styles.navigateIcon} />
@@ -38,7 +39,7 @@ const MessagesStackScreen = ({navigation, route}) => {
         name="Conversation"
         component={ConversationScreen}
         options={{
-          headerTitleAlign: "center",
+          headerTitleAlign: 'center',
           tabBarVisible: false,
         }}
       />
