@@ -49,6 +49,16 @@ const styles = StyleSheet.create({
   images: {
     width: 100,
     height: 100,
+    borderWidth: 2,
+    borderColor: 'black',
+  },
+  images1: {
+    width: 100,
+    height: 100,
+  },
+  images2: {
+    width: 100,
+    height: 100,
   },
 });
 

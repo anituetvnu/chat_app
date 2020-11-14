@@ -26,13 +26,9 @@ async function getPathForFirebaseStorage(uri) {
 const ConversationScreen = ({navigation, route}) => {
   const [messages, setMessages] = useState(Array.from({}));
   const [message, setMessage] = useState('');
-  const [filePath, setFilePath] = useState({
-    data: '',
-    uri: '',
-  });
   const [fileData, setFileData] = useState('');
   const [fileUri, setFileUri] = useState('');
-
+  const [imagesUrl, setImagesUrl] = useState({});
   const chat = useSelector((state) => state.chat);
   const user = useSelector((state) => state.user);
 
@@ -79,7 +75,6 @@ const ConversationScreen = ({navigation, route}) => {
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       } else {
-        setFilePath(response);
         setFileData(response.data);
         setFileUri(response.uri);
         console.log('type :', typeof response);
@@ -92,7 +87,8 @@ const ConversationScreen = ({navigation, route}) => {
     });
   };
 
-  const sendImage = async () => {
+  const uploadImage = async () => {
+    if (!fileUri) return;
     const filename = fileUri.substring(fileUri.lastIndexOf('%') + 1);
     const uri = await getPathForFirebaseStorage(fileUri);
     const uploadTask = storage().ref(filename).putFile(uri);
@@ -105,40 +101,32 @@ const ConversationScreen = ({navigation, route}) => {
 
     uploadTask.then(() => {
       console.log('Image uploaded to the bucket!');
+      setFileUri('');
+      setFileData('');
     });
-  };
-
-  const renderFileData = () => {
-    if (fileData) {
-      return (
-        <Image
-          source={{uri: 'data:image/jpeg;base64,' + fileData}}
-          style={styles.images}
-        />
-      );
-    } else {
-      return (
-        <Image
-          source={require('../../../../../resource/dummy.png')}
-          style={styles.images}
-        />
-      );
-    }
   };
 
   const renderFileUri = () => {
     if (fileUri) {
       return <Image source={{uri: fileUri}} style={styles.images} />;
     } else {
-      return (
-        <Image
-          source={require('../../../../../resource/galeryImages.jpg')}
-          style={styles.images}
-        />
-      );
+      return;
+      // <Image
+      //   source={require('../../../../../resource/galeryImages.jpg')}
+      //   style={styles.images}
+      // />
     }
   };
+
+  const createObj = (base, name, url) => {
+    const obj = {...base};
+    obj[name] = url;
+    return obj;
+  };
+
   useEffect(() => {
+    setMessage(Array.from({}));
+    setImagesUrl({});
     var listMessages = [];
     const onValueChange = database()
       .ref(`UsersMessages/${chat.chatUID}`)
@@ -148,6 +136,17 @@ const ConversationScreen = ({navigation, route}) => {
           .once('value', (snap) => {
             listMessages = [snap.val()].concat(listMessages);
             setMessages(listMessages);
+            const time = snap.val().time;
+            if (snap.val().imageName) {
+              storage()
+                .ref(`${snap.val().imageName}`)
+                .getDownloadURL()
+                .then((url) => {
+                  const obj = createObj(imagesUrl, snap.val().time, url);
+                  // console.log([...imagesUrl, obj]);
+                  setImagesUrl(obj);
+                });
+            }
           });
       });
 
@@ -159,10 +158,32 @@ const ConversationScreen = ({navigation, route}) => {
   }, [user.id, chat.chatUID]);
 
   const renderMessageItem = ({item}) => {
+    console.log('time ', item.time);
+    console.log('imagesURL', imagesUrl);
+    console.log('imageURL', imagesUrl[`${item.time}`]);
     return (
-      <Text style={item.sentBy == user.id ? styles.message2 : styles.message1}>
-        {item.message}
-      </Text>
+      <View>
+        {item.message ? (
+          <Text
+            style={item.sentBy == user.id ? styles.message2 : styles.message1}>
+            {item.message}
+            {item.imageName}
+            {imagesUrl[item.time]}
+          </Text>
+        ) : (
+          <></>
+        )}
+        {imagesUrl[`${item.time}`] ? (
+          <Image
+            source={{
+              uri: imagesUrl[`${item.time}`],
+            }}
+            style={styles.images}
+          />
+        ) : (
+          <Text>no image</Text>
+        )}
+      </View>
     );
   };
 
@@ -187,8 +208,15 @@ const ConversationScreen = ({navigation, route}) => {
         <Text>{chat.userUID}</Text>
         <Text>{chat.chatUID}</Text>
         <Text>{fileUri}</Text>
-        {renderFileData()}
         {renderFileUri()}
+        <Image
+          source={{
+            uri:
+              'https://firebasestorage.googleapis.com/v0/b/chat-app-f00c6.appspot.com/o/2F25%2FORIGINAL%2FNONE%2F1229885030?alt=media&token=de6ecf99-a3e1-46bb-a1d0-f23defd6abc8',
+          }}
+          style={styles.images}
+        />
+
         <View style={styles.inputArea}>
           <TouchableOpacity
             onPress={() => {
@@ -204,9 +232,13 @@ const ConversationScreen = ({navigation, route}) => {
           />
           <TouchableOpacity
             onPress={() => {
-              sendMessage(message, user.id, chat.chatUID).then(setMessage);
-              sendImage();
+              sendMessage(message, user.id, chat.chatUID, fileUri).then(
+                setMessage,
+              );
+              uploadImage();
               console.log('send');
+              console.log('uri', fileUri);
+              console.log('message', message);
             }}>
             <Feather name="send" color="black" style={styles.linkButton} />
           </TouchableOpacity>
