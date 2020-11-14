@@ -181,7 +181,7 @@ const ConversationScreen = ({navigation, route}) => {
             style={styles.images}
           />
         ) : (
-          <Text>no image</Text>
+          <></>
         )}
       </View>
     );
@@ -209,14 +209,6 @@ const ConversationScreen = ({navigation, route}) => {
         <Text>{chat.chatUID}</Text>
         <Text>{fileUri}</Text>
         {renderFileUri()}
-        <Image
-          source={{
-            uri:
-              'https://firebasestorage.googleapis.com/v0/b/chat-app-f00c6.appspot.com/o/2F25%2FORIGINAL%2FNONE%2F1229885030?alt=media&token=de6ecf99-a3e1-46bb-a1d0-f23defd6abc8',
-          }}
-          style={styles.images}
-        />
-
         <View style={styles.inputArea}>
           <TouchableOpacity
             onPress={() => {
