@@ -2,6 +2,7 @@
 import React from 'react';
 import {Text, View, TouchableOpacity, Image, FlatList} from 'react-native';
 import {useSelector} from 'react-redux';
+import database from '@react-native-firebase/database';
 
 import styles from './styles';
 
