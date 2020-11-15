@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 import {Text, View, TouchableOpacity, Image, FlatList} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import database from '@react-native-firebase/database';
+
 import styles from './styles';
 
 const fake_chat = [
