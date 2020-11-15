@@ -9,6 +9,8 @@ import CallStackScreen from './CallStackScreen/CallStackScreen';
 
 const Tab = createBottomTabNavigator();
 
+const iconColor = 'rgb(72, 163, 255)';
+
 const routeIcons = {
   Messages: 'message-text',
   Search: 'account-box-multiple',
@@ -18,20 +20,20 @@ const routeIcons = {
 const HomeBottomTabScreen = ({navigation, route}) => {
   return (
     <Tab.Navigator
-      initialRouteName="MessagesStack"
+      initialRouteName="Messages"
       screenOptions={({route}) => ({
         tabBarIcon: ({focused}) => (
           <MaterialCommunityIcons
             name={routeIcons[route.name]}
             size={24}
-            color={focused ? 'rgb(72, 163, 255)' : 'grey'}
+            color={focused ? iconColor : 'grey'}
           />
         ),
       })}
       tabBarOptions={{
-        activeTintColor: 'rgb(72, 163, 255)',
+        activeTintColor: iconColor,
         inactiveTintColor: 'grey',
-        keyboardHidesTabBar: 'true',
+        keyboardHidesTabBar: true,
       }}>
       <Tab.Screen
         name="Messages"

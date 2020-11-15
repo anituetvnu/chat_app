@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   userName: {
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: 'bold',
     color: 'rgb(39,51,80)',
   },
