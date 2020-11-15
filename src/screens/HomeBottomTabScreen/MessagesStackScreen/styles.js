@@ -1,9 +1,9 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   navigateIcon: {
-    margin: 5,
-    color: "black",
+    padding: 10,
+    color: 'white',
     fontSize: 30,
   },
 });

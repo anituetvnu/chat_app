@@ -39,8 +39,10 @@ const MessagesStackScreen = ({navigation, route}) => {
         name="Conversation"
         component={ConversationScreen}
         options={{
+          title: `${route.params?.item.fullName}`,
           headerTitleAlign: 'center',
-          tabBarVisible: false,
+          headerTintColor: 'white',
+          tabBarVisible: true,
         }}
       />
     </Stack.Navigator>

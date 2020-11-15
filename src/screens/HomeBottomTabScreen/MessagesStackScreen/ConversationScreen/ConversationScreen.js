@@ -5,11 +5,10 @@ import {
   TextInput,
   FlatList,
   TouchableOpacity,
-  SafeAreaView,
   Image,
 } from 'react-native';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import database from '@react-native-firebase/database';
 import storage from '@react-native-firebase/storage';
@@ -214,7 +213,7 @@ const ConversationScreen = ({navigation, route}) => {
             onPress={() => {
               launchImageLibrary();
             }}>
-            <AntDesign name="link" color="black" style={styles.linkButton} />
+            <Ionicons name="image" style={styles.linkButton} />
           </TouchableOpacity>
           <TextInput
             style={styles.textInput}
@@ -232,7 +231,7 @@ const ConversationScreen = ({navigation, route}) => {
               console.log('uri', fileUri);
               console.log('message', message);
             }}>
-            <Feather name="send" color="black" style={styles.linkButton} />
+            <Ionicons name="send" style={styles.linkButton} />
           </TouchableOpacity>
         </View>
       </View>

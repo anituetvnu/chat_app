@@ -3,6 +3,7 @@ import {Text, View, Image, TouchableOpacity, Alert} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import styles from './styles';
 import {createStackNavigator} from '@react-navigation/stack';
+import {useSelector} from 'react-redux';
 
 const Stack = createStackNavigator();
 
@@ -13,6 +14,7 @@ const socialInfo = [
 ];
 
 const Account = ({navigation}) => {
+  const user = useSelector((state) => state.user);
   const logOut = () => {
     Alert.alert(
       'Message',
@@ -37,8 +39,8 @@ const Account = ({navigation}) => {
           style={styles.avatar}
         />
         <View style={styles.userInfo}>
-          <Text style={styles.userName}>John Wick</Text>
-          <Text style={styles.userJob}>Designer</Text>
+          <Text style={styles.userName}>{user.fullName}</Text>
+          <Text style={styles.userJob}>{user.email}</Text>
           <View style={styles.followAndSend}>
             <Text style={styles.follow} onPress={() => alert('follow')}>
               Follow
