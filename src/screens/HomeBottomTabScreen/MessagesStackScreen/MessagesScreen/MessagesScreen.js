@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Text, View, TouchableOpacity, Image, FlatList} from 'react-native';
 import {useSelector} from 'react-redux';
 import database from '@react-native-firebase/database';
@@ -46,6 +46,25 @@ const fake_chat = [
 
 const MessagesScreen = ({navigation, route}) => {
   const user = useSelector((state) => state.user);
+  const [Users, setUsers] = useState(Array.from({}));
+
+  useEffect(() => {
+    const ref = database()
+      .ref('Chats')
+      .on('child_added', (snap) => {
+        if (user.id == snap.val()[0]) {
+          const newUsers = [...Users, snap.val()[1]];
+          setUsers(newUsers);
+        }
+        if (user.id == snap.val()[1]) {
+          const newUsers = [...Users, snap.val()[0]];
+          setUsers(newUsers);
+        }
+        console.log(snap.val());
+        console.log(snap.key);
+      });
+    return () => {};
+  }, [user.id]);
 
   const renderItem = ({item}) => {
     return (
