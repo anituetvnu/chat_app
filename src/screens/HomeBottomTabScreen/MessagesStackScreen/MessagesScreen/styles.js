@@ -29,7 +29,9 @@ const styles = StyleSheet.create({
   chatAvatar: {
     width: 55,
     height: 55,
-    borderRadius: 30,
+    borderRadius: 100,
+    borderWidth: 1,
+    borderColor: 'grey',
   },
   chatName: {
     fontSize: 20,

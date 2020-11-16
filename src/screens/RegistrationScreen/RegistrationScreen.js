@@ -29,7 +29,7 @@ export default function RegistrationScreen({navigation}) {
           fullName,
         };
         database().ref(`Users/${data.id}`).set(data);
-        navigation.navigate('Login', data);
+        navigation.navigate('Login', {data: data});
       })
       .catch((error) => {
         alert(error);

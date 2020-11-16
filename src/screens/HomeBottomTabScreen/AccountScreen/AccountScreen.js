@@ -1,6 +1,7 @@
 import React from 'react';
 import {Text, View, Image, TouchableOpacity, Alert} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './styles';
 import {createStackNavigator} from '@react-navigation/stack';
 import {useSelector} from 'react-redux';
@@ -35,7 +36,9 @@ const Account = ({navigation}) => {
     <View style={styles.container}>
       <View style={styles.avatarWrapper}>
         <Image
-          source={require('../../../../assets/1.jpg')}
+          source={{
+            uri: user.avatarUrl,
+          }}
           style={styles.avatar}
         />
         <View style={styles.userInfo}>
@@ -66,15 +69,29 @@ const Account = ({navigation}) => {
       </View>
       <View style={styles.logOut}>
         <TouchableOpacity style={styles.buttonLogOut} onPress={() => logOut()}>
-          <Text
+          <View
             style={{
-              textAlign: 'center',
-              color: 'white',
-              fontSize: 20,
-              padding: 5,
+              flexDirection: 'row',
+              justifyContent: 'center',
             }}>
-            Log Out
-          </Text>
+            <MaterialCommunityIcons
+              name="logout"
+              style={{
+                color: 'white',
+                fontSize: 25,
+                paddingVertical: 5,
+              }}
+            />
+            <Text
+              style={{
+                textAlign: 'center',
+                color: 'white',
+                fontSize: 20,
+                padding: 5,
+              }}>
+              LOG OUT
+            </Text>
+          </View>
         </TouchableOpacity>
       </View>
     </View>
