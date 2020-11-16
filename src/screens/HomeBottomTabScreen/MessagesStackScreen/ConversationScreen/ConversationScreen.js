@@ -39,8 +39,6 @@ const ConversationScreen = ({navigation, route}) => {
       },
     };
     ImagePicker.launchCamera(options, (response) => {
-      // console.log('Response = ', response);
-
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
@@ -50,7 +48,6 @@ const ConversationScreen = ({navigation, route}) => {
         alert(response.customButton);
       } else {
         const source = {uri: response.uri};
-        // console.log('response', JSON.stringify(response));
         setFilePath(response);
         setFileData(response.data);
         setFileUri(response.uri);
@@ -67,8 +64,6 @@ const ConversationScreen = ({navigation, route}) => {
     };
 
     ImagePicker.launchImageLibrary(options, (response) => {
-      // console.log('Response = ', response);
-
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
@@ -80,8 +75,6 @@ const ConversationScreen = ({navigation, route}) => {
         console.log('key :', Object.keys(response));
         console.log('uri :', response.uri);
         console.log('filesize :', response.fileSize);
-
-        // console.log('data :', fileData);
       }
     });
   };
@@ -110,10 +103,6 @@ const ConversationScreen = ({navigation, route}) => {
       return <Image source={{uri: fileUri}} style={styles.images} />;
     } else {
       return;
-      // <Image
-      //   source={require('../../../../../resource/galeryImages.jpg')}
-      //   style={styles.images}
-      // />
     }
   };
 
@@ -142,7 +131,6 @@ const ConversationScreen = ({navigation, route}) => {
                 .getDownloadURL()
                 .then((url) => {
                   const obj = createObj(imagesUrl, snap.val().time, url);
-                  // console.log([...imagesUrl, obj]);
                   setImagesUrl(obj);
                 });
             }
@@ -157,9 +145,9 @@ const ConversationScreen = ({navigation, route}) => {
   }, [user.id, chat.chatUID]);
 
   const renderMessageItem = ({item}) => {
-    console.log('time ', item.time);
-    console.log('imagesURL', imagesUrl);
-    console.log('imageURL', imagesUrl[`${item.time}`]);
+    // console.log('time ', item.time);
+    // console.log('imagesURL', imagesUrl);
+    // console.log('imageURL', imagesUrl[`${item.time}`]);
     return (
       <View>
         {item.message ? (
@@ -227,9 +215,9 @@ const ConversationScreen = ({navigation, route}) => {
                 setMessage,
               );
               uploadImage();
-              console.log('send');
-              console.log('uri', fileUri);
-              console.log('message', message);
+              // console.log('send');
+              // console.log('uri', fileUri);
+              // console.log('message', message);
             }}>
             <Ionicons name="send" style={styles.linkButton} />
           </TouchableOpacity>
