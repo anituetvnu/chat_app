@@ -5,10 +5,10 @@ import styles from './styles';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 export default function RegistrationScreen({navigation}) {
-  const [fullName, setFullName] = useState('');
+  const [fullName, setFullName] = useState('123');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [password, setPassword] = useState('123123');
+  const [confirmPassword, setConfirmPassword] = useState('123123');
 
   const onFooterLinkPress = () => {
     navigation.navigate('Login');
@@ -28,8 +28,11 @@ export default function RegistrationScreen({navigation}) {
           email,
           fullName,
         };
-        database().ref(`Users/${data.id}`).set(data);
-        navigation.navigate('Login', {data: data});
+        fetch('https://picsum.photos/200').then((response) => {
+          data['avatarUrl'] = response.url;
+          database().ref(`Users/${data.id}`).set(data);
+        });
+        navigation.navigate('Login', data);
       })
       .catch((error) => {
         alert(error);

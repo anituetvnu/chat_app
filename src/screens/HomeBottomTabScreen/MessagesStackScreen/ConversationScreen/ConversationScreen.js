@@ -25,13 +25,9 @@ async function getPathForFirebaseStorage(uri) {
 const ConversationScreen = ({navigation, route}) => {
   const [messages, setMessages] = useState(Array.from({}));
   const [message, setMessage] = useState('');
-  const [filePath, setFilePath] = useState({
-    data: '',
-    uri: '',
-  });
   const [fileData, setFileData] = useState('');
   const [fileUri, setFileUri] = useState('');
-
+  const [imagesUrl, setImagesUrl] = useState({});
   const chat = useSelector((state) => state.chat);
   const user = useSelector((state) => state.user);
 
@@ -78,13 +74,11 @@ const ConversationScreen = ({navigation, route}) => {
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       } else {
-        setFilePath(response);
         setFileData(response.data);
         setFileUri(response.uri);
         console.log('type :', typeof response);
         console.log('key :', Object.keys(response));
         console.log('uri :', response.uri);
-        console.log('filesize :', response.fileSize);
         console.log('filesize :', response.fileSize);
 
         // console.log('data :', fileData);
@@ -92,59 +86,46 @@ const ConversationScreen = ({navigation, route}) => {
     });
   };
 
-  const sendImage = async () => {
-    const filename = fileUri.substring(fileUri.lastIndexOf('/') + 1);
+  const uploadImage = async () => {
+    if (!fileUri) return;
+    const filename = fileUri.substring(fileUri.lastIndexOf('%') + 1);
     const uri = await getPathForFirebaseStorage(fileUri);
-    const uploadTask = ref.putFile(uri);
+    const uploadTask = storage().ref(filename).putFile(uri);
 
-    // const task = storage()
-    //   .ref(filename)
-    //   .putFile(fileUri)
-    //   .then(() => console.log('done'))
-    //   .catch(console.log);
-
-    // task.on('state_changed', (taskSnapshot) => {
-    //   console.log(
-    //     `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`,
-    //   );
-    // });
-
-    // task.then(() => {
-    //   console.log('Image uploaded to the bucket!');
-    // });
-  };
-
-  const renderFileData = () => {
-    if (fileData) {
-      return (
-        <Image
-          source={{uri: 'data:image/jpeg;base64,' + fileData}}
-          style={styles.images}
-        />
+    uploadTask.on('state_changed', (taskSnapshot) => {
+      console.log(
+        `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`,
       );
-    } else {
-      return (
-        <Image
-          source={require('../../../../../resource/dummy.png')}
-          style={styles.images}
-        />
-      );
-    }
+    });
+
+    uploadTask.then(() => {
+      console.log('Image uploaded to the bucket!');
+      setFileUri('');
+      setFileData('');
+    });
   };
 
   const renderFileUri = () => {
     if (fileUri) {
       return <Image source={{uri: fileUri}} style={styles.images} />;
     } else {
-      return (
-        <Image
-          source={require('../../../../../resource/galeryImages.jpg')}
-          style={styles.images}
-        />
-      );
+      return;
+      // <Image
+      //   source={require('../../../../../resource/galeryImages.jpg')}
+      //   style={styles.images}
+      // />
     }
   };
+
+  const createObj = (base, name, url) => {
+    const obj = {...base};
+    obj[name] = url;
+    return obj;
+  };
+
   useEffect(() => {
+    setMessage(Array.from({}));
+    setImagesUrl({});
     var listMessages = [];
     const onValueChange = database()
       .ref(`UsersMessages/${chat.chatUID}`)
@@ -154,6 +135,17 @@ const ConversationScreen = ({navigation, route}) => {
           .once('value', (snap) => {
             listMessages = [snap.val()].concat(listMessages);
             setMessages(listMessages);
+            const time = snap.val().time;
+            if (snap.val().imageName) {
+              storage()
+                .ref(`${snap.val().imageName}`)
+                .getDownloadURL()
+                .then((url) => {
+                  const obj = createObj(imagesUrl, snap.val().time, url);
+                  // console.log([...imagesUrl, obj]);
+                  setImagesUrl(obj);
+                });
+            }
           });
       });
 
@@ -165,10 +157,32 @@ const ConversationScreen = ({navigation, route}) => {
   }, [user.id, chat.chatUID]);
 
   const renderMessageItem = ({item}) => {
+    console.log('time ', item.time);
+    console.log('imagesURL', imagesUrl);
+    console.log('imageURL', imagesUrl[`${item.time}`]);
     return (
-      <Text style={item.sentBy == user.id ? styles.message2 : styles.message1}>
-        {item.message}
-      </Text>
+      <View>
+        {item.message ? (
+          <Text
+            style={item.sentBy == user.id ? styles.message2 : styles.message1}>
+            {item.message}
+            {item.imageName}
+            {imagesUrl[item.time]}
+          </Text>
+        ) : (
+          <></>
+        )}
+        {imagesUrl[`${item.time}`] ? (
+          <Image
+            source={{
+              uri: imagesUrl[`${item.time}`],
+            }}
+            style={styles.images}
+          />
+        ) : (
+          <></>
+        )}
+      </View>
     );
   };
 
@@ -193,7 +207,6 @@ const ConversationScreen = ({navigation, route}) => {
         <Text>{chat.userUID}</Text>
         <Text>{chat.chatUID}</Text>
         <Text>{fileUri}</Text>
-        {renderFileData()}
         {renderFileUri()}
         <View style={styles.inputArea}>
           <TouchableOpacity
@@ -210,9 +223,13 @@ const ConversationScreen = ({navigation, route}) => {
           />
           <TouchableOpacity
             onPress={() => {
-              sendMessage(message, user.id, chat.chatUID).then(setMessage);
-              sendImage();
+              sendMessage(message, user.id, chat.chatUID, fileUri).then(
+                setMessage,
+              );
+              uploadImage();
               console.log('send');
+              console.log('uri', fileUri);
+              console.log('message', message);
             }}>
             <Ionicons name="send" style={styles.linkButton} />
           </TouchableOpacity>
