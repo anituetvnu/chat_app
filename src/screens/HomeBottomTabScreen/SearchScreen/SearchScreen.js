@@ -81,7 +81,12 @@ const Search = ({navigation, route}) => {
 
   return (
     <View style={styles.container}>
-      <View style={{alignItems: 'center', marginTop: 5, marginBottom: 40}}>
+      <View
+        style={{
+          alignItems: 'center',
+          marginTop: 5,
+          marginBottom: 40,
+        }}>
         <TextInput
           style={styles.textInput}
           placeholder="Search by name ..."
@@ -97,7 +102,6 @@ const Search = ({navigation, route}) => {
             });
           }}></TextInput>
       </View>
-      <TouchableOpacity onPress={() => {}}></TouchableOpacity>
       <View style={styles.chatList}>
         <FlatList
           data={fillUsers}

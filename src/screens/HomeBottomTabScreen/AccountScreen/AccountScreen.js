@@ -26,7 +26,7 @@ const Account = ({navigation}) => {
           onPress: () => {},
           style: 'cancel',
         },
-        {text: 'OK', onPress: () => navigation.replace('Login')},
+        {text: 'OK', onPress: () => navigation.replace('Login', {data: user})},
       ],
       {cancelable: false},
     );
