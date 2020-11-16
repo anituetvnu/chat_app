@@ -5,17 +5,10 @@ import styles from './styles';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 export default function RegistrationScreen({navigation}) {
-<<<<<<< HEAD
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-=======
   const [fullName, setFullName] = useState('123');
   const [email, setEmail] = useState('acc@gmail.com');
   const [password, setPassword] = useState('123123');
   const [confirmPassword, setConfirmPassword] = useState('123123');
->>>>>>> b4f16f2440ae721b7904eb1abc869149289fc12b
 
   const onFooterLinkPress = () => {
     navigation.navigate('Login');
