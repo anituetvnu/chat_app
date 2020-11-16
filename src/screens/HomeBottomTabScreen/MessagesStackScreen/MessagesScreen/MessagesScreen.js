@@ -3,77 +3,80 @@ import React, {useState, useEffect} from 'react';
 import {Text, View, TouchableOpacity, Image, FlatList} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import database from '@react-native-firebase/database';
+import {getChatUID} from '../../../../service/firebase/getChatUID';
+import {createChatUID} from '../../../../service/firebase/createChatUID';
+import {setChat} from '../../../../actions/chat';
 
 import styles from './styles';
 
-const fake_chat = [
-  {
-    name: 'ny1',
-    avatar: require('../../../../../assets/1.jpg'),
-    last_message: 'Em ăn cơm chưa?',
-    last_message_time: '17h30',
-    number: 3,
-  },
-  {
-    name: 'ny2',
-    avatar: require('../../../../../assets/1.jpg'),
-    last_message: 'Em làm gì đấy?',
-    last_message_time: '17h30',
-    number: 10,
-  },
-  {
-    name: 'ny3',
-    avatar: require('../../../../../assets/1.jpg'),
-    last_message: 'ví dụ ní dụdv',
-    last_message_time: '17h30',
-    number: 20,
-  },
-  {
-    name: 'ny4',
-    avatar: require('../../../../../assets/1.jpg'),
-    last_message: '123456789',
-    last_message_time: '17h30',
-    number: 8,
-  },
-  {
-    name: 'ny5',
-    avatar: require('../../../../../assets/1.jpg'),
-    last_message: '123456789',
-    last_message_time: '17h30',
-    number: 15,
-  },
-];
-
 const MessagesScreen = ({navigation, route}) => {
   const user = useSelector((state) => state.user);
+  const [users, setUsers] = useState(Array.from({}));
 
-  const [users, setUsers] = useState([]);
   const dispatch = useDispatch();
+
   useEffect(() => {
     const listUsers = [];
-    database()
-      .ref('Users')
+    const onValueChange = database()
+      .ref('Chats')
       .on('child_added', (snap) => {
-        listUsers.push(snap.val());
-        setUsers(listUsers);
+        console.log('snap', snap.val());
+        if (user.id == snap.val()[0]) {
+          database()
+            .ref(`Users/${snap.val()[1]}`)
+            .once('value', (snap) => {
+              console.log(snap.val());
+              listUsers.push(snap.val());
+              setUsers(listUsers);
+            });
+        } else if (user.id == snap.val()[1]) {
+          database()
+            .ref(`Users/${snap.val()[0]}`)
+            .once('value', (snap) => {
+              console.log(snap.val());
+              listUsers.push(snap.val());
+              setUsers(listUsers);
+            });
+        }
       });
-  }, []);
+    return () => {
+      database().ref('Chats').off('child_added', onValueChange);
+    };
+  }, [user.id]);
 
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity
         style={styles.chatCard}
         onPress={() => {
-          navigation.navigate('Conversation', item);
+          getChatUID(user.id, item.id).then((UID) => {
+            if (UID) {
+              const action = setChat({
+                chatUID: UID,
+                userUID: item.id,
+              });
+              dispatch(action);
+              navigation.navigate('Conversation');
+            } else {
+              createChatUID(user.id, item.id).then((UID) => {
+                const action = setChat({
+                  chatUID: UID,
+                  userUID: item.id,
+                });
+                dispatch(action);
+                navigation.navigate('Conversation');
+              });
+            }
+          });
         }}>
-        <Image source={item.avatar} style={styles.chatAvatar} />
+        <Image source={{uri: item.avatarUrl}} style={styles.chatAvatar} />
         <View style={styles.chatContent}>
           <View
             style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
             }}>
-            <Text style={styles.chatName}>{item.name}</Text>
+            <Text style={styles.chatName}>{item.fullName}</Text>
             <Text style={styles.chatTime}>{item.last_message_time}</Text>
           </View>
           <View
@@ -106,9 +109,9 @@ const MessagesScreen = ({navigation, route}) => {
         <Text>{user.email}</Text>
         <Text>{user.fullName}</Text>
         <FlatList
-          data={fake_chat}
+          data={users}
           renderItem={renderItem}
-          keyExtractor={(item) => item.name}
+          keyExtractor={(item) => item.id}
         />
       </View>
     </View>

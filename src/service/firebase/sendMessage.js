@@ -16,5 +16,6 @@ export default sendMessage = async (
     newMessage['imageName'] = image.substring(image.lastIndexOf('%') + 1);
   const newMessageRef = database().ref(`Messages`).push(newMessage);
   database().ref(`UsersMessages/${chatUID}`).push(newMessageRef.key);
+  database().ref(`Chats/${chatUID}/last_message`).set(newMessage);
   return '';
 };

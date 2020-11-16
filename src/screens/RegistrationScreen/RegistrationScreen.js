@@ -6,7 +6,7 @@ import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 export default function RegistrationScreen({navigation}) {
   const [fullName, setFullName] = useState('123');
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('acc@gmail.com');
   const [password, setPassword] = useState('123123');
   const [confirmPassword, setConfirmPassword] = useState('123123');
 
