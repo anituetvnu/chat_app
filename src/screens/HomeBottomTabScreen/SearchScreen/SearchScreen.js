@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Text, View, TouchableOpacity, FlatList, TextInput} from 'react-native';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  FlatList,
+  TextInput,
+  Image,
+} from 'react-native';
 import database from '@react-native-firebase/database';
 import styles from './styles';
 import {useSelector, useDispatch} from 'react-redux';
@@ -36,6 +43,8 @@ const Search = ({navigation, route}) => {
       <TouchableOpacity
         style={styles.chatCard}
         onPress={() => {
+          console.log(item.avatarUrl);
+          navigation.navigate('Messages', {item: item});
           getChatUID(user.id, item.id).then((UID) => {
             if (UID) {
               const action = setChat({
@@ -56,9 +65,19 @@ const Search = ({navigation, route}) => {
             }
           });
         }}>
-        <View>
-          <Text style={styles.chatName}>name: {item.fullName}</Text>
-          <Text style={styles.chatName}>email: {item.email}</Text>
+        <View style={{flex: 1, flexDirection: 'row'}}>
+          <View style={{marginHorizontal: 10}}>
+            <Image
+              source={{
+                uri: item.avatarUrl,
+              }}
+              style={styles.chatAvatar}
+            />
+          </View>
+          <View>
+            <Text style={styles.chatName}>{item.fullName}</Text>
+            <Text style={styles.chatName}>email: {item.email}</Text>
+          </View>
         </View>
       </TouchableOpacity>
     );
@@ -66,7 +85,7 @@ const Search = ({navigation, route}) => {
 
   return (
     <View style={styles.container}>
-      <View style={{alignItems: 'center', marginVertical: 10}}>
+      <View style={{alignItems: 'center', marginTop: 5, marginBottom: 40}}>
         <TextInput
           style={styles.textInput}
           placeholder="Search by name ..."

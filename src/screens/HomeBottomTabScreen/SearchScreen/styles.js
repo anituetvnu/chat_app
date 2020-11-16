@@ -50,14 +50,22 @@ const styles = StyleSheet.create({
   chatTime: {
     // alignSelf: "",
   },
+  chatAvatar: {
+    width: 55,
+    height: 55,
+    borderRadius: 100,
+    borderWidth: 1,
+    borderColor: 'grey',
+  },
   textInput: {
     fontSize: 20,
-    borderWidth: 1,
-    borderRadius: 20,
-    width: 0.8 * width,
+    borderWidth: 2,
+    borderRadius: 10,
+    width: 0.9 * width,
     paddingVertical: 5,
     paddingHorizontal: 10,
-    color: 'black',
+    borderColor: 'grey',
+    color: 'grey',
   },
 });
 
