@@ -17,22 +17,25 @@ const Search = ({navigation, route}) => {
   const [fillUsers, setFillUsers] = useState([]);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
   useEffect(() => {
     const listUsers = [];
-    database()
+    const onValueChange = database()
       .ref('Users')
       .on('child_added', (snap) => {
         listUsers.push(snap.val());
         setUsers(listUsers);
         setFillUsers(listUsers);
       });
+    return () => {
+      database().ref('Users').off('child_added', onValueChange);
+    };
   }, []);
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity
         style={styles.chatCard}
         onPress={() => {
-          navigation.navigate('Messages', {item: item});
           getChatUID(user.id, item.id).then((UID) => {
             if (UID) {
               const action = setChat({
@@ -69,7 +72,6 @@ const Search = ({navigation, route}) => {
           placeholder="Search by name ..."
           onChangeText={(value) => {
             const newUsers = [];
-            console.log(newUsers);
             users.map((user) => {
               let name = user.fullName;
               if (name.search(value) >= 0) {

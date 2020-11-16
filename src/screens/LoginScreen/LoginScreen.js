@@ -13,15 +13,10 @@ export default function LoginScreen({navigation, route}) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(route.params?.data);
     const user = route.params?.data;
     if (user) {
-      console.log(route.params?.data.email);
-      console.log(route.params?.data.password);
       setEmail(route.params?.data.email);
       setPassword(route.params?.data.password);
-    } else {
-      console.log('no email password');
     }
   }, [route.params?.data]);
   const onFooterLinkPress = () => {
@@ -36,7 +31,6 @@ export default function LoginScreen({navigation, route}) {
         const ref = database()
           .ref(`Users/${uid}`)
           .once('value', (snap) => {
-            console.log(snap.val());
             const user = snap.val();
             const action = logInUser(user);
             dispatch(action);
