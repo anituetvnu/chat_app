@@ -88,8 +88,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonLogOut: {
-    borderRadius: 10,
-    width: 0.6 * width,
+    borderRadius: 20,
+    width: 0.4 * width,
     height: 0.05 * height,
     backgroundColor: 'rgb(72, 163, 255)',
   },
