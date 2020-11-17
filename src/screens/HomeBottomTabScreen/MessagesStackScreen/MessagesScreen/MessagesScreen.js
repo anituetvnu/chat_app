@@ -20,21 +20,26 @@ const MessagesScreen = ({navigation, route}) => {
     const onValueChange = database()
       .ref('Chats')
       .on('child_added', (snap) => {
+        const last_message = snap.val()[2] === 'created' ? null : snap.val()[2];
         console.log('snap', snap.val());
         if (user.id == snap.val()[0]) {
           database()
             .ref(`Users/${snap.val()[1]}`)
             .once('value', (snap) => {
-              console.log(snap.val());
-              listUsers.push(snap.val());
+              const temp = snap.val();
+              if (last_message) temp['last_message'] = last_message;
+              console.log(temp);
+              listUsers.push(temp);
               setUsers(listUsers);
             });
         } else if (user.id == snap.val()[1]) {
           database()
             .ref(`Users/${snap.val()[0]}`)
             .once('value', (snap) => {
-              console.log(snap.val());
-              listUsers.push(snap.val());
+              const temp = snap.val();
+              if (last_message) temp['last_message'] = last_message;
+              console.log(temp);
+              listUsers.push(temp);
               setUsers(listUsers);
             });
         }
@@ -43,6 +48,20 @@ const MessagesScreen = ({navigation, route}) => {
       database().ref('Chats').off('child_added', onValueChange);
     };
   }, [user.id]);
+
+  const timeCompare = (time) => {
+    if (!time) return null;
+    const t = new Date().getTime() - time;
+    if (t / 1000 / 60 / 60 / 24 >= 1) {
+      return Math.floor(t / 1000 / 60 / 60 / 24) + ' ngày trước';
+    } else if (t / 1000 / 60 / 60 >= 1) {
+      return Math.floor(t / 1000 / 60 / 60) + ' giờ trước';
+    } else if (t / 1000 / 60 >= 1) {
+      return Math.floor(t / 1000 / 60) + ' phút trước';
+    } else {
+      return Math.floor(t / 1000) + ' giây trước';
+    }
+  };
 
   const renderItem = ({item}) => {
     return (
@@ -77,15 +96,17 @@ const MessagesScreen = ({navigation, route}) => {
               justifyContent: 'space-between',
             }}>
             <Text style={styles.chatName}>{item.fullName}</Text>
-            <Text style={styles.chatTime}>{item.last_message_time}</Text>
+            <Text style={styles.chatTime}>
+              {timeCompare(item.last_message?.time)}
+            </Text>
           </View>
           <View
             style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
             }}>
-            <Text style={styles.chatMessage}>{item.last_message}</Text>
-            <Text
+            <Text style={styles.chatMessage}>{item.last_message?.message}</Text>
+            {/* <Text
               style={{
                 width: 27,
                 height: 27,
@@ -95,7 +116,7 @@ const MessagesScreen = ({navigation, route}) => {
                 textAlignVertical: 'center',
               }}>
               {item.number}
-            </Text>
+            </Text> */}
           </View>
         </View>
       </TouchableOpacity>
