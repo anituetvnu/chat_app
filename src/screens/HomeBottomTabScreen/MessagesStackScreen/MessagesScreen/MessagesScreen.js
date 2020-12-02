@@ -62,8 +62,10 @@ const MessagesScreen = ({navigation, route}) => {
       return Math.floor(t / 1000) + ' giây trước';
     }
   };
-
+  const [lastMessage, setLastMessage] = useState('');
+  useEffect(() => {}, [lastMessage]);
   const renderItem = ({item}) => {
+    setLastMessage(item.last_message?.message);
     return (
       <TouchableOpacity
         style={styles.chatCard}
@@ -83,7 +85,7 @@ const MessagesScreen = ({navigation, route}) => {
                   userUID: item.id,
                 });
                 dispatch(action);
-                navigation.navigate('Conversation');
+                navigation.navigate('Conversation', {item: item});
               });
             }
           });
@@ -106,6 +108,7 @@ const MessagesScreen = ({navigation, route}) => {
               justifyContent: 'space-between',
             }}>
             <Text style={styles.chatMessage}>{item.last_message?.message}</Text>
+            <Text style={styles.chatMessage}>{lastMessage}</Text>
             {/* <Text
               style={{
                 width: 27,
@@ -122,15 +125,17 @@ const MessagesScreen = ({navigation, route}) => {
       </TouchableOpacity>
     );
   };
-
+  console.log(users);
   return (
     <View style={styles.container}>
       <View style={styles.chatList}>
-        <Text>{user.id}</Text>
+        {/* <Text>{user.id}</Text>
         <Text>{user.email}</Text>
-        <Text>{user.fullName}</Text>
+        <Text>{user.fullName}</Text> */}
         <FlatList
-          data={users}
+          data={users.sort(
+            (a, b) => -(a.last_message?.time - b.last_message?.time),
+          )}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />

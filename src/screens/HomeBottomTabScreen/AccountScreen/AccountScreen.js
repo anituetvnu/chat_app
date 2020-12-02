@@ -1,5 +1,12 @@
 import React from 'react';
-import {Text, View, Image, TouchableOpacity, Alert} from 'react-native';
+import {
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Alert,
+  TextInput,
+} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './styles';
@@ -8,13 +15,7 @@ import {useSelector} from 'react-redux';
 
 const Stack = createStackNavigator();
 
-const socialInfo = [
-  {name: 'Photos', quantity: 210},
-  {name: 'Followers', quantity: '15k'},
-  {name: 'Following', quantity: 605},
-];
-
-const Account = ({navigation}) => {
+const AccountScreen = ({navigation}) => {
   const user = useSelector((state) => state.user);
   const logOut = () => {
     Alert.alert(
@@ -34,6 +35,14 @@ const Account = ({navigation}) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.title}>My account</Text>
+        <TouchableOpacity style={styles.buttonLogOut} onPress={() => logOut()}>
+          <View>
+            <MaterialCommunityIcons name="logout" style={styles.button} />
+          </View>
+        </TouchableOpacity>
+      </View>
       <View style={styles.avatarWrapper}>
         <Image
           source={{
@@ -56,66 +65,23 @@ const Account = ({navigation}) => {
           </View>
         </View>
       </View>
-
-      <View style={styles.infoCounter}>
-        {socialInfo.map((info) => {
-          return (
-            <View style={styles.box}>
-              <Text style={styles.number}>{info.quantity}</Text>
-              <Text style={styles.content}>{info.name}</Text>
-            </View>
-          );
-        })}
-      </View>
-      <View style={styles.logOut}>
-        <TouchableOpacity style={styles.buttonLogOut} onPress={() => logOut()}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-            }}>
-            <MaterialCommunityIcons
-              name="logout"
-              style={{
-                color: 'white',
-                fontSize: 25,
-                paddingVertical: 5,
-              }}
-            />
-            <Text
-              style={{
-                textAlign: 'center',
-                color: 'white',
-                fontSize: 20,
-                padding: 5,
-              }}>
-              LOG OUT
-            </Text>
-          </View>
-        </TouchableOpacity>
+      <View style={styles.body}>
+        <View style={styles.headerBody}>
+          <Image
+            source={{
+              uri: user.avatarUrl,
+            }}
+            style={styles.avatarHeader}
+          />
+          <TextInput
+            style={styles.textInput}
+            placeholder="Hôm nay bạn thế nào ..."
+            placeholderTextColor="grey"
+            onChangeText={() => console.log(123)}></TextInput>
+        </View>
       </View>
     </View>
   );
 };
 
-export default function AccountScreen() {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: 'rgb(72, 163, 255)',
-          height: 50,
-        },
-      }}>
-      <Stack.Screen
-        options={{
-          title: 'Account',
-          headerTintColor: 'white',
-          headerTitleAlign: 'center',
-        }}
-        name="Account"
-        component={Account}
-      />
-    </Stack.Navigator>
-  );
-}
+export default AccountScreen;

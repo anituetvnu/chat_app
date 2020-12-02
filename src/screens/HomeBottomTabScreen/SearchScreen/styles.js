@@ -7,16 +7,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  navigateBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: 'lightblue',
-  },
-  navigateIcon: {
-    padding: 10,
-    color: 'white',
-    fontSize: 30,
-  },
   chatList: {
     flex: 1,
     flexDirection: 'column',
@@ -29,11 +19,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingBottom: 6,
   },
-  chatAvatar: {
-    width: 55,
-    height: 55,
-    borderRadius: 30,
-  },
   chatName: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -45,7 +30,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
-    paddingLeft: 10,
+    // paddingLeft: 10,
   },
   chatTime: {
     // alignSelf: "",
@@ -54,18 +39,27 @@ const styles = StyleSheet.create({
     width: 55,
     height: 55,
     borderRadius: 100,
-    borderWidth: 1,
-    borderColor: 'grey',
+  },
+
+  header: {
+    height: 50,
+    backgroundColor: 'rgb(72, 163, 255)',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  iconHeader: {
+    color: 'white',
+    fontSize: 40,
+    marginTop: 'auto',
+    marginBottom: 'auto',
   },
   textInput: {
     fontSize: 20,
-    borderWidth: 2,
-    borderRadius: 10,
     width: 0.9 * width,
     paddingVertical: 5,
     paddingHorizontal: 10,
-    borderColor: 'grey',
-    color: 'grey',
+    color: 'white',
   },
 });
 

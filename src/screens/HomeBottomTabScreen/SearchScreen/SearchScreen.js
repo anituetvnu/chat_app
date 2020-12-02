@@ -13,13 +13,9 @@ import {useSelector, useDispatch} from 'react-redux';
 import {getChatUID} from '../../../service/firebase/getChatUID';
 import {createChatUID} from '../../../service/firebase/createChatUID';
 import {setChat} from '../../../actions/chat';
-import Feather from 'react-native-vector-icons/Feather';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
-import {createStackNavigator} from '@react-navigation/stack';
-
-const Stack = createStackNavigator();
-
-const Search = ({navigation, route}) => {
+const SearchScreen = ({navigation, route}) => {
   const [users, setUsers] = useState([]);
   const [fillUsers, setFillUsers] = useState([]);
   const user = useSelector((state) => state.user);
@@ -44,7 +40,7 @@ const Search = ({navigation, route}) => {
         style={styles.chatCard}
         onPress={() => {
           console.log(item.avatarUrl);
-          navigation.navigate('Messages', {item: item});
+          navigation.navigate('Message', {item: item});
           getChatUID(user.id, item.id).then((UID) => {
             if (UID) {
               const action = setChat({
@@ -85,20 +81,18 @@ const Search = ({navigation, route}) => {
 
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          alignItems: 'center',
-          marginTop: 5,
-          marginBottom: 40,
-        }}>
+      <View style={styles.header}>
+        <EvilIcons name="search" style={styles.iconHeader} />
         <TextInput
           style={styles.textInput}
-          placeholder="Search by name ..."
+          placeholder="Tìm kiếm bạn bè ..."
+          placeholderTextColor="rgb(229, 247, 255)"
           onChangeText={(value) => {
             const newUsers = [];
             users.map((user) => {
-              let name = user.fullName;
-              if (name.search(value) >= 0) {
+              let val = value.toUpperCase();
+              let name = user.fullName.toUpperCase();
+              if (name.search(val) >= 0) {
                 newUsers.push(user);
               }
               setFillUsers(newUsers);
@@ -113,28 +107,6 @@ const Search = ({navigation, route}) => {
         />
       </View>
     </View>
-  );
-};
-
-const SearchScreen = () => {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: 'rgb(72, 163, 255)',
-          height: 50,
-        },
-      }}>
-      <Stack.Screen
-        name="Search"
-        component={Search}
-        options={{
-          title: 'People',
-          headerTitleAlign: 'center',
-          headerTintColor: 'white',
-        }}
-      />
-    </Stack.Navigator>
   );
 };
 
