@@ -1,16 +1,50 @@
 import React, {useState, useEffect} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
+import {Provider} from 'react-redux';
+
 import LoginScreen from './src/screens/LoginScreen/LoginScreen';
 import RegistrationScreen from './src/screens/RegistrationScreen/RegistrationScreen';
 import HomeBottomTabScreen from './src/screens/HomeBottomTabScreen/HomeBottomTabScreen';
-import {Provider} from 'react-redux';
 import store from './src/store';
+// import {fcmService} from './src/Notification/FCMService';
+// import {localNotificationService} from './src/Notification/LocalNotificationService';
+
 // webrtc push notification icon location
 
 const Stack = createStackNavigator();
 
 export default function App() {
+  // useEffect(() => {
+  //   fcmService.registerAppWithFCM();
+  //   fcmService.register(onRegister, onNotification, onOpenNotification);
+  //   localNotificationService.configure(onOpenNotification);
+  // }, []);
+
+  // const onRegister = (token) => {
+  //   console.log('[App] Token', token);
+  // };
+
+  // const onNotification = (notify) => {
+  //   // console.log("[App] onNotification", notify);
+  //   const options = {
+  //     soundName: 'default',
+  //     playSound: true,
+  //   };
+
+  //   localNotificationService.showNotification(
+  //     0,
+  //     notify.notification.title,
+  //     notify.notification.body,
+  //     notify,
+  //     options,
+  //   );
+  // };
+
+  // const onOpenNotification = async (notify) => {
+  //   console.log('notify', notify);
+  // };
+
   return (
     <Provider store={store}>
       <NavigationContainer>
