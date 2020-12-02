@@ -1,14 +1,30 @@
 import {StyleSheet, Dimensions} from 'react-native';
 
 const width = Dimensions.get('window').width;
-const height = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   container: {},
-  navigate: {
+  header: {
+    height: 50,
+    backgroundColor: 'rgb(72, 163, 255)',
+    alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: 10,
+    position: 'relative',
+  },
+  title: {
+    color: 'white',
+    fontSize: 24,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+  button: {
+    fontSize: 24,
+    color: 'white',
+  },
+  buttonLogOut: {
+    backgroundColor: 'rgb(72, 163, 255)',
+    position: 'absolute',
+    marginLeft: width - 35,
   },
   icons: {
     fontSize: 30,
@@ -25,8 +41,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   userInfo: {
-    marginHorizontal: 10,
-    justifyContent: 'space-between',
+    marginLeft: 10,
   },
   userName: {
     fontSize: 25,
@@ -38,60 +53,56 @@ const styles = StyleSheet.create({
     color: 'rgb(168,172,195)',
   },
   followAndSend: {
+    marginTop: 'auto',
     flexDirection: 'row',
   },
   follow: {
     color: 'white',
     fontSize: 20,
-    margin: 5,
     paddingVertical: 5,
     paddingHorizontal: 20,
-    borderRadius: 15,
+    marginRight: 10,
+    borderRadius: 10,
     backgroundColor: 'lightblue',
   },
   sendMessage: {
     color: 'white',
-    fontSize: 26,
-    margin: 5,
+    fontSize: 25,
     paddingVertical: 5,
     paddingHorizontal: 20,
-    borderRadius: 15,
+    borderRadius: 10,
     backgroundColor: 'lightblue',
-  },
-  box: {flex: 1},
-  infoCounter: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginVertical: 10,
-  },
-  number: {
-    fontSize: 25,
-    fontWeight: '200',
-    textAlign: 'center',
-  },
-  content: {
-    color: 'grey',
-    textAlign: 'center',
-  },
-  photos: {
-    flexDirection: 'row',
-  },
-  column: {
-    flexDirection: 'column',
-    flex: 1,
-    marginHorizontal: 10,
-    marginVertical: 10,
   },
   logOut: {
     marginTop: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  buttonLogOut: {
-    borderRadius: 20,
-    width: 0.4 * width,
-    height: 0.05 * height,
-    backgroundColor: 'rgb(72, 163, 255)',
+
+  body: {
+    marginVertical: 15,
+    borderTopWidth: 8,
+    borderColor: 'rgb(214, 214, 214)',
+  },
+  headerBody: {
+    marginTop: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    borderBottomWidth: 1,
+  },
+  avatarHeader: {
+    backgroundColor: 'grey',
+    width: 60,
+    height: 60,
+    marginBottom: 5,
+    borderRadius: 100,
+  },
+  textInput: {
+    width: width - 100,
+    height: 60,
+    marginLeft: 15,
+    fontSize: 15,
+    // borderWidth: 1,
   },
 });
 

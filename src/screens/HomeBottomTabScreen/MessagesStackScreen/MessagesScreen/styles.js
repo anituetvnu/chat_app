@@ -4,19 +4,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  navigateBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: 'lightblue',
-  },
-  navigateIcon: {
-    padding: 10,
-    color: 'white',
-    fontSize: 30,
-  },
+
   chatList: {
     flex: 1,
     flexDirection: 'column',
+    marginTop: 20,
   },
   chatCard: {
     flexDirection: 'row',
@@ -30,8 +22,6 @@ const styles = StyleSheet.create({
     width: 55,
     height: 55,
     borderRadius: 100,
-    borderWidth: 1,
-    borderColor: 'grey',
   },
   chatName: {
     fontSize: 20,

@@ -175,7 +175,7 @@ const ConversationScreen = ({navigation, route}) => {
   };
 
   const renderEmptyMessages = ({}) => {
-    return <Text>No message</Text>;
+    return <Text></Text>;
   };
 
   return (
@@ -191,10 +191,10 @@ const ConversationScreen = ({navigation, route}) => {
             ListEmptyComponent={renderEmptyMessages}
           />
         </View>
-        <Text>{user.id}</Text>
+        {/* <Text>{user.id}</Text>
         <Text>{chat.userUID}</Text>
         <Text>{chat.chatUID}</Text>
-        <Text>{fileUri}</Text>
+        <Text>{fileUri}</Text> */}
         {renderFileUri()}
         <View style={styles.inputArea}>
           <TouchableOpacity

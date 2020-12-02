@@ -12,7 +12,7 @@ const Tab = createBottomTabNavigator();
 const iconColor = 'rgb(72, 163, 255)';
 
 const routeIcons = {
-  Messages: 'message-text',
+  Message: 'message-text',
   Search: 'account-box-multiple',
   Account: 'account-settings',
 };
@@ -36,7 +36,7 @@ const HomeBottomTabScreen = ({navigation, route}) => {
         keyboardHidesTabBar: true,
       }}>
       <Tab.Screen
-        name="Messages"
+        name="Message"
         component={MessagesStackScreen}
         options={{headerShown: false}}
       />

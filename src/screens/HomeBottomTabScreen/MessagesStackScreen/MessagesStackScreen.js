@@ -1,6 +1,7 @@
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Feather from 'react-native-vector-icons/Feather';
 
 import MessagesScreen from './MessagesScreen/MessagesScreen';
@@ -10,6 +11,7 @@ import styles from './styles';
 const Stack = createStackNavigator();
 
 const MessagesStackScreen = ({navigation, route}) => {
+  console.disableYellowBox = true;
   return (
     <Stack.Navigator
       initialRouteName="Add"
@@ -23,14 +25,14 @@ const MessagesStackScreen = ({navigation, route}) => {
           title: 'Chat App',
           headerTitleAlign: 'center',
           headerTintColor: 'white',
-          headerLeft: (props) => (
-            <TouchableOpacity>
-              <Feather name="menu" style={styles.navigateIcon} />
-            </TouchableOpacity>
-          ),
+          // headerLeft: (props) => (
+          //   <TouchableOpacity>
+          //     <Feather name="menu" style={styles.navigateIcon} />
+          //   </TouchableOpacity>
+          // ),
           headerRight: (props) => (
-            <TouchableOpacity>
-              <Feather name="search" style={styles.navigateIcon} />
+            <TouchableOpacity onPress={() => navigation.navigate('Search')}>
+              <EvilIcons name="search" style={styles.navigateIcon} />
             </TouchableOpacity>
           ),
         }}
