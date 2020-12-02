@@ -175,7 +175,7 @@ const ConversationScreen = ({navigation, route}) => {
   };
 
   const renderEmptyMessages = ({}) => {
-    return <Text>No message</Text>;
+    return <Text></Text>;
   };
 
   return (

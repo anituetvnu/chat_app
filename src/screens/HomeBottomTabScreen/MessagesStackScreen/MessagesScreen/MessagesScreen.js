@@ -1,6 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect} from 'react';
-import {Text, View, TouchableOpacity, Image, FlatList} from 'react-native';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  FlatList,
+  SafeAreaView,
+  RefreshControl,
+} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import database from '@react-native-firebase/database';
 import {getChatUID} from '../../../../service/firebase/getChatUID';
@@ -8,12 +16,27 @@ import {createChatUID} from '../../../../service/firebase/createChatUID';
 import {setChat} from '../../../../actions/chat';
 
 import styles from './styles';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const MessagesScreen = ({navigation, route}) => {
   const user = useSelector((state) => state.user);
   const [users, setUsers] = useState(Array.from({}));
+  const [refreshing, setRefreshing] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   const dispatch = useDispatch();
+
+  const wait = (timeout) => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, timeout);
+    });
+  };
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setRefresh(!refresh);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
   useEffect(() => {
     const listUsers = [];
@@ -28,7 +51,7 @@ const MessagesScreen = ({navigation, route}) => {
             .once('value', (snap) => {
               const temp = snap.val();
               if (last_message) temp['last_message'] = last_message;
-              console.log(temp);
+              // console.log(temp);
               listUsers.push(temp);
               setUsers(listUsers);
             });
@@ -38,7 +61,7 @@ const MessagesScreen = ({navigation, route}) => {
             .once('value', (snap) => {
               const temp = snap.val();
               if (last_message) temp['last_message'] = last_message;
-              console.log(temp);
+              // console.log(temp);
               listUsers.push(temp);
               setUsers(listUsers);
             });
@@ -47,7 +70,7 @@ const MessagesScreen = ({navigation, route}) => {
     return () => {
       database().ref('Chats').off('child_added', onValueChange);
     };
-  }, [user.id]);
+  }, [user.id, refresh]);
 
   const timeCompare = (time) => {
     if (!time) return null;
@@ -127,20 +150,25 @@ const MessagesScreen = ({navigation, route}) => {
   };
   console.log(users);
   return (
-    <View style={styles.container}>
-      <View style={styles.chatList}>
-        {/* <Text>{user.id}</Text>
-        <Text>{user.email}</Text>
-        <Text>{user.fullName}</Text> */}
-        <FlatList
-          data={users.sort(
-            (a, b) => -(a.last_message?.time - b.last_message?.time),
-          )}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
-      </View>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
+        <View style={styles.chatList}>
+          {/* <Text>{user.id}</Text>
+          <Text>{user.email}</Text>
+          <Text>{user.fullName}</Text> */}
+          <FlatList
+            data={users.sort(
+              (a, b) => -(a.last_message?.time - b.last_message?.time),
+            )}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+          />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
