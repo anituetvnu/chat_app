@@ -68,6 +68,11 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'black',
   },
+  avatarImage: {
+    width: 30,
+    height: 30,
+    borderRadius: 50,
+  },
   images1: {
     width: 100,
     height: 100,
