@@ -96,6 +96,7 @@ const MessagesScreen = ({navigation, route}) => {
               const action = setChat({
                 chatUID: UID,
                 userUID: item.id,
+                userName: item.fullName,
               });
               dispatch(action);
               navigation.navigate('Conversation');
@@ -104,6 +105,7 @@ const MessagesScreen = ({navigation, route}) => {
                 const action = setChat({
                   chatUID: UID,
                   userUID: item.id,
+                  userName: item.fullName,
                 });
                 dispatch(action);
                 navigation.navigate('Conversation', {item: item});

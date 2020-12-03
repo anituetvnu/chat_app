@@ -1,6 +1,7 @@
 const initialState = {
   chatUID: '',
   userUID: '',
+  userName: '',
 };
 
 const chatReducer = (state = initialState, action) => {

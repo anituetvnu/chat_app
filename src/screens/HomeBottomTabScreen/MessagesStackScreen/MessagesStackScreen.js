@@ -3,6 +3,7 @@ import {TouchableOpacity} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Feather from 'react-native-vector-icons/Feather';
+import {useSelector} from 'react-redux';
 
 import MessagesScreen from './MessagesScreen/MessagesScreen';
 import ConversationScreen from './ConversationScreen/ConversationScreen';
@@ -11,6 +12,7 @@ import styles from './styles';
 const Stack = createStackNavigator();
 
 const MessagesStackScreen = ({navigation, route}) => {
+  const chat = useSelector((state) => state.chat);
   // console.disableYellowBox = true;
   return (
     <Stack.Navigator
@@ -41,7 +43,7 @@ const MessagesStackScreen = ({navigation, route}) => {
         name="Conversation"
         component={ConversationScreen}
         options={{
-          title: `${route.params?.item.fullName}`,
+          title: `${chat.userName}`,
           headerTitleAlign: 'center',
           headerTintColor: 'white',
           tabBarVisible: true,

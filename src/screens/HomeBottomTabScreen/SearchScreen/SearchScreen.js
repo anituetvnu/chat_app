@@ -46,6 +46,7 @@ const SearchScreen = ({navigation, route}) => {
               const action = setChat({
                 chatUID: UID,
                 userUID: item.id,
+                userName: item.fullName,
               });
               dispatch(action);
               navigation.navigate('Conversation');
@@ -54,6 +55,7 @@ const SearchScreen = ({navigation, route}) => {
                 const action = setChat({
                   chatUID: UID,
                   userUID: item.id,
+                  userName: item.fullName,
                 });
                 dispatch(action);
                 navigation.navigate('Conversation');

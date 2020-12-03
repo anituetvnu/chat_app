@@ -145,31 +145,37 @@ const ConversationScreen = ({navigation, route}) => {
   }, [user.id, chat.chatUID]);
 
   const renderMessageItem = ({item}) => {
+    console.log('item ', item);
     // console.log('time ', item.time);
     // console.log('imagesURL', imagesUrl);
     // console.log('imageURL', imagesUrl[`${item.time}`]);
     return (
       <View>
-        {item.message ? (
-          <Text
-            style={item.sentBy == user.id ? styles.message2 : styles.message1}>
-            {item.message}
-            {item.imageName}
-            {imagesUrl[item.time]}
-          </Text>
-        ) : (
-          <></>
-        )}
-        {imagesUrl[`${item.time}`] ? (
-          <Image
-            source={{
-              uri: imagesUrl[`${item.time}`],
-            }}
-            style={styles.images}
-          />
-        ) : (
-          <></>
-        )}
+        {/* {item.sentBy == user.id ? styles.message2 : styles.message1} */}
+        <View>
+          {item.message ? (
+            <Text
+              style={
+                item.sentBy == user.id ? styles.message2 : styles.message1
+              }>
+              {item.message}
+              {item.imageName}
+              {imagesUrl[item.time]}
+            </Text>
+          ) : (
+            <></>
+          )}
+          {imagesUrl[`${item.time}`] ? (
+            <Image
+              source={{
+                uri: imagesUrl[`${item.time}`],
+              }}
+              style={styles.images}
+            />
+          ) : (
+            <></>
+          )}
+        </View>
       </View>
     );
   };

@@ -2,6 +2,7 @@ const initialState = {
   id: '',
   fullName: '',
   email: '',
+  avartarURL: '',
 };
 
 const userReducer = (state = initialState, action) => {
