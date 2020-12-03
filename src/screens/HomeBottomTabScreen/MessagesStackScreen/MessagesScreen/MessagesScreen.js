@@ -22,7 +22,6 @@ const MessagesScreen = ({navigation, route}) => {
   const user = useSelector((state) => state.user);
   const [users, setUsers] = useState(Array.from({}));
   const [refreshing, setRefreshing] = useState(false);
-  const [refresh, setRefresh] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -34,7 +33,6 @@ const MessagesScreen = ({navigation, route}) => {
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    setRefresh(!refresh);
     wait(2000).then(() => setRefreshing(false));
   }, []);
 
@@ -70,7 +68,7 @@ const MessagesScreen = ({navigation, route}) => {
     return () => {
       database().ref('Chats').off('child_added', onValueChange);
     };
-  }, [user.id, refresh]);
+  }, [user.id, refreshing]);
 
   const timeCompare = (time) => {
     if (!time) return null;
@@ -85,10 +83,10 @@ const MessagesScreen = ({navigation, route}) => {
       return Math.floor(t / 1000) + ' giây trước';
     }
   };
-  const [lastMessage, setLastMessage] = useState('');
-  useEffect(() => {}, [lastMessage]);
+  // const [lastMessage, setLastMessage] = useState('');
+  // useEffect(() => {}, [lastMessage]);
   const renderItem = ({item}) => {
-    setLastMessage(item.last_message?.message);
+    // setLastMessage(item.last_message?.message);
     return (
       <TouchableOpacity
         style={styles.chatCard}
@@ -131,7 +129,7 @@ const MessagesScreen = ({navigation, route}) => {
               justifyContent: 'space-between',
             }}>
             <Text style={styles.chatMessage}>{item.last_message?.message}</Text>
-            <Text style={styles.chatMessage}>{lastMessage}</Text>
+            {/* <Text style={styles.chatMessage}>{lastMessage}</Text> */}
             {/* <Text
               style={{
                 width: 27,
@@ -148,26 +146,23 @@ const MessagesScreen = ({navigation, route}) => {
       </TouchableOpacity>
     );
   };
-  console.log(users);
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }>
-        <View style={styles.chatList}>
-          {/* <Text>{user.id}</Text>
+      <View style={styles.chatList}>
+        {/* <Text>{user.id}</Text>
           <Text>{user.email}</Text>
           <Text>{user.fullName}</Text> */}
-          <FlatList
-            data={users.sort(
-              (a, b) => -(a.last_message?.time - b.last_message?.time),
-            )}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-          />
-        </View>
-      </ScrollView>
+        <FlatList
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+          data={users.sort(
+            (a, b) => -(a.last_message?.time - b.last_message?.time),
+          )}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
+      </View>
     </SafeAreaView>
   );
 };

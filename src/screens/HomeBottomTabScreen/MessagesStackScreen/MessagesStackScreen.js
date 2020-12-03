@@ -11,7 +11,7 @@ import styles from './styles';
 const Stack = createStackNavigator();
 
 const MessagesStackScreen = ({navigation, route}) => {
-  console.disableYellowBox = true;
+  // console.disableYellowBox = true;
   return (
     <Stack.Navigator
       initialRouteName="Add"
