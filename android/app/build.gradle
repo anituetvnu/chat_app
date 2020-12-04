@@ -182,6 +182,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.firebase:firebase-analytics:17.3.0'
     implementation 'com.android.support:multidex:1.0.3'
     implementation project(':stringee-react-native')
     implementation fileTree(dir: "libs", include: ["*.jar"])
