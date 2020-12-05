@@ -38,19 +38,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column-reverse',
   },
-  message2: {
-    maxWidth: '80%',
-    textAlign: 'right',
-    backgroundColor: message,
-    borderRadius: 10,
-    paddingHorizontal: 15,
-    paddingVertical: 5,
-    marginVertical: 1,
-    marginHorizontal: 5,
-    alignSelf: 'flex-end',
-    fontSize: 20,
-  },
-  message1: {
+  leftBox: {
     maxWidth: '80%',
     textAlign: 'left',
     backgroundColor: message,
@@ -60,13 +48,37 @@ const styles = StyleSheet.create({
     marginVertical: 1,
     marginHorizontal: 5,
     alignSelf: 'flex-start',
+  },
+  rightBox: {
+    maxWidth: '80%',
+    textAlign: 'right',
+    backgroundColor: message,
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 5,
+    marginVertical: 3,
+    marginHorizontal: 5,
+    alignSelf: 'flex-end',
+  },
+  leftMessage: {
+    textAlign: 'left',
     fontSize: 20,
   },
-  images: {
+  rightMessage: {
+    textAlign: 'right',
+    fontSize: 20,
+  },
+  image: {
     width: 100,
     height: 100,
-    borderWidth: 2,
-    borderColor: 'black',
+    marginVertical: 3,
+  },
+  loadedImage: {
+    flexDirection: 'row',
+    // flex: 1,
+    width: 100,
+    height: 100,
+    marginVertical: 3,
   },
   avatarImage: {
     width: 30,

@@ -102,7 +102,7 @@ const ConversationScreen = ({navigation, route}) => {
 
   const renderFileUri = () => {
     if (fileUri) {
-      return <Image source={{uri: fileUri}} style={styles.images} />;
+      return <Image source={{uri: fileUri}} style={styles.loadedImage} />;
     } else {
       return;
     }
@@ -139,7 +139,6 @@ const ConversationScreen = ({navigation, route}) => {
           });
       });
 
-    // Stop listening for updates when no longer required
     return () =>
       database()
         .ref(`UsersMessages/${chat.chatUID}`)
@@ -148,36 +147,53 @@ const ConversationScreen = ({navigation, route}) => {
 
   const renderMessageItem = ({item}) => {
     console.log('item ', item);
-    // console.log('time ', item.time);
-    // console.log('imagesURL', imagesUrl);
-    // console.log('imageURL', imagesUrl[`${item.time}`]);
     return (
       <View>
-        {/* {item.sentBy == user.id ? styles.message2 : styles.message1} */}
-        <View>
-          {item.message ? (
-            <Text
-              style={
-                item.sentBy == user.id ? styles.message2 : styles.message1
-              }>
-              {item.message}
-              {item.imageName}
-              {imagesUrl[item.time]}
-            </Text>
-          ) : (
-            <></>
-          )}
-          {imagesUrl[`${item.time}`] ? (
+        {item.sentBy == user.id ? (
+          <View style={styles.rightBox}>
+            {item.message ? (
+              <Text style={styles.rightMessage}>{item.message}</Text>
+            ) : (
+              <></>
+            )}
+            {imagesUrl[`${item.time}`] ? (
+              <Image
+                source={{
+                  uri: imagesUrl[`${item.time}`],
+                }}
+                style={styles.image}
+              />
+            ) : (
+              <></>
+            )}
+          </View>
+        ) : (
+          <View style={{flexDirection: 'row', marginVertical: 3}}>
             <Image
               source={{
-                uri: imagesUrl[`${item.time}`],
+                uri: user.avatarUrl,
               }}
-              style={styles.images}
+              style={styles.avatarImage}
             />
-          ) : (
-            <></>
-          )}
-        </View>
+            <View style={styles.leftBox}>
+              {item.message ? (
+                <Text style={styles.leftMessage}>{item.message}</Text>
+              ) : (
+                <></>
+              )}
+              {imagesUrl[`${item.time}`] ? (
+                <Image
+                  source={{
+                    uri: imagesUrl[`${item.time}`],
+                  }}
+                  style={styles.image}
+                />
+              ) : (
+                <></>
+              )}
+            </View>
+          </View>
+        )}
       </View>
     );
   };
@@ -188,7 +204,6 @@ const ConversationScreen = ({navigation, route}) => {
 
   return (
     <Fragment>
-      {/* <SafeAreaView> */}
       <View style={styles.container}>
         <View style={styles.conversationArea}>
           <FlatList
@@ -199,10 +214,7 @@ const ConversationScreen = ({navigation, route}) => {
             ListEmptyComponent={renderEmptyMessages}
           />
         </View>
-        {/* <Text>{user.id}</Text>
-        <Text>{chat.userUID}</Text>
-        <Text>{chat.chatUID}</Text>
-        <Text>{fileUri}</Text> */}
+        {console.log(user)}
         {renderFileUri()}
         <View style={styles.inputArea}>
           <TouchableOpacity
@@ -228,15 +240,11 @@ const ConversationScreen = ({navigation, route}) => {
                 user.fullName,
                 message ? message : `${user.fullName} đã gửi hình ảnh`,
               );
-              // console.log('send');
-              // console.log('uri', fileUri);
-              // console.log('message', message);
             }}>
             <Ionicons name="send" style={styles.linkButton} />
           </TouchableOpacity>
         </View>
       </View>
-      {/* </SafeAreaView> */}
     </Fragment>
   );
 };

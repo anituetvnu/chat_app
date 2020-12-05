@@ -134,7 +134,11 @@ const MessagesScreen = ({navigation, route}) => {
               flexDirection: 'row',
               justifyContent: 'space-between',
             }}>
-            <Text style={styles.chatMessage}>{item.last_message?.message}</Text>
+            <Text style={styles.chatMessage}>
+              {item.last_message?.message
+                ? item.last_message?.message
+                : 'hình ảnh'}
+            </Text>
             {/* <Text style={styles.chatMessage}>{lastMessage}</Text> */}
             {/* <Text
               style={{
