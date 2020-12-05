@@ -98,6 +98,7 @@ const MessagesScreen = ({navigation, route}) => {
                 userUID: item.id,
                 userName: item.fullName,
                 userAvatarUrl: item.avatarUrl,
+                token: item.token,
               });
               dispatch(action);
               navigation.navigate('Conversation');
@@ -108,6 +109,7 @@ const MessagesScreen = ({navigation, route}) => {
                   userUID: item.id,
                   userName: item.fullName,
                   userAvatarUrl: item.avatarUrl,
+                  token: item.token,
                 });
                 dispatch(action);
                 navigation.navigate('Conversation', {item: item});

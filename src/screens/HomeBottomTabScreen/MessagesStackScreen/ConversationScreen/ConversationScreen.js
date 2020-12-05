@@ -13,6 +13,7 @@ import styles from './styles';
 import database from '@react-native-firebase/database';
 import storage from '@react-native-firebase/storage';
 import sendMessage from '../../../../service/firebase/sendMessage';
+import sendNotification from '../../../../service/firebase/sendNotification';
 import ImagePicker from 'react-native-image-picker';
 import {useSelector} from 'react-redux';
 import RNFetchBlob from 'rn-fetch-blob';
@@ -30,6 +31,7 @@ const ConversationScreen = ({navigation, route}) => {
   const [imagesUrl, setImagesUrl] = useState({});
   const chat = useSelector((state) => state.chat);
   const user = useSelector((state) => state.user);
+  const token = useSelector((state) => state.token);
 
   const launchCamera = () => {
     let options = {
@@ -221,6 +223,11 @@ const ConversationScreen = ({navigation, route}) => {
                 setMessage,
               );
               uploadImage();
+              sendNotification(
+                chat.token,
+                user.fullName,
+                message ? message : `${user.fullName} đã gửi hình ảnh`,
+              );
               // console.log('send');
               // console.log('uri', fileUri);
               // console.log('message', message);
