@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {Image, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  ActivityIndicator,
+} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
 import auth from '@react-native-firebase/auth';
@@ -13,11 +20,15 @@ import {setToken} from '../../actions/token';
 export default function LoginScreen({navigation, route}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
   const [logIn, setLogIn] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [warning, setWarning] = useState('');
+  const [transparent, setTransparent] = useState(0.5);
+
+  const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
 
+  // save token to store
   useEffect(() => {
     const saveToken = async () => {
       await messaging()
@@ -31,9 +42,15 @@ export default function LoginScreen({navigation, route}) {
     saveToken();
   }, []);
 
+  // check email and password were filled
   useEffect(() => {
-    if (email && password) setLogIn(false);
-    else setLogIn(true);
+    if (email && password) {
+      setLogIn(false);
+      setTransparent(1);
+    } else {
+      setLogIn(true);
+      setTransparent(0.5);
+    }
   }, [email, password]);
 
   const onFooterLinkPress = () => {
@@ -41,7 +58,7 @@ export default function LoginScreen({navigation, route}) {
   };
 
   const onLoginPress = () => {
-    // setLoading(true);
+    setLoading(true);
     auth()
       .signInWithEmailAndPassword(email, password)
       .then((response) => {
@@ -64,11 +81,11 @@ export default function LoginScreen({navigation, route}) {
           });
       })
       .catch((error) => {
-        alert(error);
+        // alert(error);
+        setWarning(String(error));
+        setLoading(false);
       });
   };
-
-  if (loading) return <ActivityIndicator size="large" />;
 
   return (
     <View style={styles.container}>
@@ -100,9 +117,13 @@ export default function LoginScreen({navigation, route}) {
         />
         <TouchableOpacity
           disabled={logIn}
-          style={styles.button}
+          style={[styles.button, {opacity: transparent}]}
           onPress={() => onLoginPress()}>
-          <Text style={styles.buttonTitle}>Log in</Text>
+          {loading ? (
+            <ActivityIndicator size="large" color="white" />
+          ) : (
+            <Text style={styles.buttonTitle}>Log in</Text>
+          )}
         </TouchableOpacity>
         <View style={styles.footerView}>
           <Text style={styles.footerText}>
@@ -111,6 +132,9 @@ export default function LoginScreen({navigation, route}) {
               Sign up
             </Text>
           </Text>
+        </View>
+        <View style={styles.warningView}>
+          <Text style={styles.warningText}>{warning}</Text>
         </View>
       </KeyboardAwareScrollView>
     </View>

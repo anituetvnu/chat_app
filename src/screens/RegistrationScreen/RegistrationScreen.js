@@ -1,5 +1,12 @@
-import React, {useState} from 'react';
-import {Image, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  ActivityIndicator,
+} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
 import auth from '@react-native-firebase/auth';
@@ -9,6 +16,20 @@ export default function RegistrationScreen({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [register, setRegister] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [warning, setWarning] = useState('');
+  const [transparent, setTransparent] = useState(0.5);
+
+  useEffect(() => {
+    if (email && password && fullName && confirmPassword) {
+      setRegister(false);
+      setTransparent(1);
+    } else {
+      setRegister(true);
+      setTransparent(0.5);
+    }
+  }, [email, password, fullName, confirmPassword]);
 
   const onFooterLinkPress = () => {
     navigation.navigate('Login');
@@ -35,7 +56,9 @@ export default function RegistrationScreen({navigation}) {
         navigation.navigate('Login', {data: data});
       })
       .catch((error) => {
-        alert(error);
+        // alert(error);
+        setWarning(String(error));
+        setLoading(false);
       });
   };
   return (
@@ -86,9 +109,14 @@ export default function RegistrationScreen({navigation}) {
           autoCapitalize="none"
         />
         <TouchableOpacity
-          style={styles.button}
+          disabled={register}
+          style={[styles.button, {opacity: transparent}]}
           onPress={() => onRegisterPress()}>
-          <Text style={styles.buttonTitle}>Create account</Text>
+          {loading ? (
+            <ActivityIndicator size="large" color="white" />
+          ) : (
+            <Text style={styles.buttonTitle}>Create account</Text>
+          )}
         </TouchableOpacity>
         <View style={styles.footerView}>
           <Text style={styles.footerText}>
@@ -97,6 +125,9 @@ export default function RegistrationScreen({navigation}) {
               Log in
             </Text>
           </Text>
+        </View>
+        <View style={styles.warningView}>
+          <Text style={styles.warningText}>{warning}</Text>
         </View>
       </KeyboardAwareScrollView>
     </View>
