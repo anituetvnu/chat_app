@@ -36,8 +36,11 @@ export default function RegistrationScreen({navigation}) {
   };
 
   const onRegisterPress = () => {
+    setLoading(true);
     if (password !== confirmPassword) {
       alert("Passwords don't match.");
+      setWarning("Passwords don't match.");
+      setLoading(false);
       return;
     }
     auth()
