@@ -22,6 +22,7 @@ const MessagesScreen = ({navigation, route}) => {
   const user = useSelector((state) => state.user);
   const [users, setUsers] = useState(Array.from({}));
   const [refreshing, setRefreshing] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -68,7 +69,7 @@ const MessagesScreen = ({navigation, route}) => {
     return () => {
       database().ref('Chats').off('child_added', onValueChange);
     };
-  }, [user.id, refreshing]);
+  }, [user.id, refresh]);
 
   const timeCompare = (time) => {
     if (!time) return null;
@@ -164,7 +165,13 @@ const MessagesScreen = ({navigation, route}) => {
           <Text>{user.fullName}</Text> */}
         <FlatList
           refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={() => {
+                onRefresh();
+                setRefresh(!refresh);
+              }}
+            />
           }
           data={users.sort(
             (a, b) => -(a.last_message?.time - b.last_message?.time),

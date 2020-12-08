@@ -29,6 +29,7 @@ const ConversationScreen = ({navigation, route}) => {
   const [fileData, setFileData] = useState('');
   const [fileUri, setFileUri] = useState('');
   const [imagesUrl, setImagesUrl] = useState({});
+
   const chat = useSelector((state) => state.chat);
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
