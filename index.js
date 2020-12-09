@@ -10,6 +10,8 @@ import {name as appName} from './app.json';
 // import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import PushNotification from 'react-native-push-notification';
 
+// console.disableYellowBox = true;
+
 messaging().setBackgroundMessageHandler(async (remoteMessage) => {
   console.log('Message handled in the background!', remoteMessage);
 });

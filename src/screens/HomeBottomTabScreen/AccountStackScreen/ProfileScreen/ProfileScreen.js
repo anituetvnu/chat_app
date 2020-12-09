@@ -8,14 +8,10 @@ import {
   TextInput,
 } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './styles';
-import {createStackNavigator} from '@react-navigation/stack';
 import {useSelector} from 'react-redux';
 
-const Stack = createStackNavigator();
-
-const AccountScreen = ({navigation}) => {
+const ProfileScreen = ({navigation}) => {
   const user = useSelector((state) => state.user);
   const logOut = () => {
     Alert.alert(
@@ -35,14 +31,14 @@ const AccountScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      {/* <View style={styles.header}>
         <Text style={styles.title}>My account</Text>
         <TouchableOpacity style={styles.buttonLogOut} onPress={() => logOut()}>
           <View>
             <MaterialCommunityIcons name="logout" style={styles.button} />
           </View>
         </TouchableOpacity>
-      </View>
+      </View> */}
       <View style={styles.avatarWrapper}>
         <Image
           source={{
@@ -84,4 +80,4 @@ const AccountScreen = ({navigation}) => {
   );
 };
 
-export default AccountScreen;
+export default ProfileScreen;

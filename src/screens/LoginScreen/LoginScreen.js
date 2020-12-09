@@ -89,6 +89,40 @@ export default function LoginScreen({navigation, route}) {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('Home', {
+            screen: 'Call',
+            params: {
+              screen: 'Home',
+              params: {
+                from: 'abcd',
+                to: 'dcba',
+                access_token:
+                  'eyJjdHkiOiJzdHJpbmdlZS1hcGk7dj0xIiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJqdGkiOiJTS0YwVE1wcTRRWVVZUXAxVFBSUU1sczRVcmd6V2VVSWZ1LTE2MDc0NDI3OTkiLCJpc3MiOiJTS0YwVE1wcTRRWVVZUXAxVFBSUU1sczRVcmd6V2VVSWZ1IiwiZXhwIjoxNjEwMDM0Nzk5LCJ1c2VySWQiOiJhYmNkIn0.-RDVJwpPW3d1m6mBbtHMwm4HCFI-d3A_WRQPzeN_DAc',
+              },
+            },
+          });
+        }}>
+        <Text>user: abcd</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('Home', {
+            screen: 'Call',
+            params: {
+              screen: 'Home',
+              params: {
+                from: 'abcd',
+                to: 'dcba',
+                access_token:
+                  'eyJjdHkiOiJzdHJpbmdlZS1hcGk7dj0xIiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJqdGkiOiJTS0YwVE1wcTRRWVVZUXAxVFBSUU1sczRVcmd6V2VVSWZ1LTE2MDc0NDM0NzgiLCJpc3MiOiJTS0YwVE1wcTRRWVVZUXAxVFBSUU1sczRVcmd6V2VVSWZ1IiwiZXhwIjoxNjEwMDM1NDc4LCJ1c2VySWQiOiJkY2JhIn0.qER1rrNp52tJudPOI6P5LFZD5eAimSB6rJJjL9rdRvE',
+              },
+            },
+          });
+        }}>
+        <Text>user: dcba</Text>
+      </TouchableOpacity>
       <KeyboardAwareScrollView
         style={{flex: 1, width: '100%'}}
         keyboardShouldPersistTaps="always">

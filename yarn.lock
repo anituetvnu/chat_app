@@ -1200,6 +1200,11 @@
   resolved "https://registry.yarnpkg.com/@react-native-firebase/storage/-/storage-7.4.11.tgz#a81733f228de375f13efc50f83c5703c6dd84d29"
   integrity sha512-2YnfIHdIuf+PrK3Jlsewqw3Sqe/HPxmTBQY5l5ow7qVbVLIgARMxeV2EQf4XtxbUTFe1WkeDQEplHnPRjJiHjA==
 
+"@react-native-picker/picker@^1.9.4":
+  version "1.9.4"
+  resolved "https://registry.yarnpkg.com/@react-native-picker/picker/-/picker-1.9.4.tgz#f4392b58eab320061c71f5c9ab6f74dc3501ec9e"
+  integrity sha512-71sNPRZf/PeMKpLMuzKHLT4p4zRilWnfv61nko9HMZtjW0R0DNy2zLy6PYokTbtbUqhwCdeEIldQcjFSoNR8rg==
+
 "@react-navigation/bottom-tabs@^5.11.0":
   version "5.11.0"
   resolved "https://registry.yarnpkg.com/@react-navigation/bottom-tabs/-/bottom-tabs-5.11.0.tgz#9796b2c6416405ff8d4fa45f8d8a5c5cee8a31dc"
@@ -5856,6 +5861,11 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.1.tgz#5b3531bd76a645a4c9fb6e693ed36419e3301339"
   integrity sha512-NAnt2iGDXohE5LI7uBnLnqvLQMtzhkiAOLXTmv+qnF9Ky7xAPcX8Up/xWIhxvLVGJvuLiNc4xQLtuqDRzb4fSA==
 
+react-native-date-picker@^3.2.5:
+  version "3.2.5"
+  resolved "https://registry.yarnpkg.com/react-native-date-picker/-/react-native-date-picker-3.2.5.tgz#351836282fc909e5c4de3d490846fcae16794c20"
+  integrity sha512-OKIqx3ZSUsp7XWcfuiWouIfIyW+CK48kG8HC2ZzLm8bSrsruSo/+McIybZ7NYuIAgDB9z5omK18EA1oOZgITxA==
+
 react-native-gesture-handler@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.8.0.tgz#18f61f51da50320f938957b0ee79bc58f47449dc"
@@ -6760,10 +6770,10 @@ string_decoder@~1.1.1:
   dependencies:
     safe-buffer "~5.1.0"
 
-stringee-react-native@^1.3.7:
-  version "1.3.7"
-  resolved "https://registry.yarnpkg.com/stringee-react-native/-/stringee-react-native-1.3.7.tgz#66da376150ebd578b9f49381d61051de3cc2badc"
-  integrity sha512-AOapnMgSP81Y7ygljVZFRu6Mc7H0Zw9G6AygGxysCbM98HKNZ/RKGhLVA8NfeLp0vdYYK9MAR8h0i9Lrtt9kFQ==
+stringee-react-native@^1.3.8:
+  version "1.3.8"
+  resolved "https://registry.yarnpkg.com/stringee-react-native/-/stringee-react-native-1.3.8.tgz#b69008f8139ecc7a86e31a95b991a5dd9b7f7315"
+  integrity sha512-PWbOXFk82EL5qWqYxNXZOOXItWGIkpVb1+uxksMXNv6CD4dFOTX2lIKXN1mJE/UCp3iYwWavA8ed5ShAFcwXcg==
   dependencies:
     underscore "^1.8.3"
 

@@ -4,7 +4,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MessagesStackScreen from './MessagesStackScreen/MessagesStackScreen';
 import SearchScreen from './SearchScreen/SearchScreen';
-import AccountScreen from './AccountScreen/AccountScreen';
+import AccountStackScreen from './AccountStackScreen/AccountStackScreen';
 import CallStackScreen from './CallStackScreen/CallStackScreen';
 
 const Tab = createBottomTabNavigator();
@@ -47,10 +47,10 @@ const HomeBottomTabScreen = ({navigation, route}) => {
       />
       <Tab.Screen
         name="Account"
-        component={AccountScreen}
+        component={AccountStackScreen}
         options={{headerShown: false}}
       />
-      {/* <Tab.Screen name="Call" component={CallStackScreen} /> */}
+      <Tab.Screen name="Call" component={CallStackScreen} />
     </Tab.Navigator>
   );
 };
