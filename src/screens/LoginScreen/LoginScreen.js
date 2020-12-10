@@ -65,10 +65,10 @@ export default function LoginScreen({navigation, route}) {
         const uid = response.user.uid;
         // console.log('response: ', response);
         // const token = await AsyncStorage.getItem('@token').then(console.log);
-        database().ref(`Users/${uid}/token`).set(token);
         const ref = database()
           .ref(`Users/${uid}`)
           .once('value', (snap) => {
+            database().ref(`Users/${uid}/token`).set(token);
             const user = snap.val();
             const action = logInUser(user);
             dispatch(action);

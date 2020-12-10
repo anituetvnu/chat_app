@@ -8,7 +8,7 @@ import {
   TextInput,
   Keyboard,
 } from 'react-native';
-import {useSelector} from 'react-redux';
+import {connect} from 'react-redux';
 import {
   StringeeClient,
   StringeeCall,
@@ -40,16 +40,15 @@ class HomeScreen extends Component {
 
   componentWillMount() {}
 
-  // async componentDidMount() {
-  //   await this.refs.client.connect(user1);
-  // }
-
   async componentDidMount() {
-    await this.refs.client.connect(
-      // this.props.navigation.getParam('access_token'),
-      this.props.route.params.access_token,
-    );
-    console.log(this.props.route.params);
+    await fetch('https://get-access-token-api.herokuapp.com/?userid=dccm')
+      .then((response) => response.json())
+      .then(async (data) => {
+        await this.refs.client.connect(data.token);
+        console.log(data);
+      });
+    // this.props.navigation.getParam('access_token'),
+    // console.log(this.props.route.params);
   }
 
   // IncomingCall event
