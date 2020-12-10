@@ -96,15 +96,13 @@ export default function LoginScreen({navigation, route}) {
             params: {
               screen: 'Home',
               params: {
-                from: 'abcd',
-                to: 'dcba',
                 access_token:
-                  'eyJjdHkiOiJzdHJpbmdlZS1hcGk7dj0xIiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJqdGkiOiJTS0YwVE1wcTRRWVVZUXAxVFBSUU1sczRVcmd6V2VVSWZ1LTE2MDc0NDI3OTkiLCJpc3MiOiJTS0YwVE1wcTRRWVVZUXAxVFBSUU1sczRVcmd6V2VVSWZ1IiwiZXhwIjoxNjEwMDM0Nzk5LCJ1c2VySWQiOiJhYmNkIn0.-RDVJwpPW3d1m6mBbtHMwm4HCFI-d3A_WRQPzeN_DAc',
+                  'eyJjdHkiOiJzdHJpbmdlZS1hcGk7dj0xIiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJqdGkiOiJTS0YwVE1wcTRRWVVZUXAxVFBSUU1sczRVcmd6V2VVSWZ1LTE2MDc1OTEwMjAiLCJpc3MiOiJTS0YwVE1wcTRRWVVZUXAxVFBSUU1sczRVcmd6V2VVSWZ1IiwiZXhwIjoxNjEwMTgzMDIwLCJ1c2VySWQiOiJ6eGN2In0.uUjN0quJtq7z0nbNxJ8TVe1jrkBfzxVsyAIDfiBJSQA',
               },
             },
           });
         }}>
-        <Text>user: abcd</Text>
+        <Text>user: zxcv</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
@@ -113,10 +111,8 @@ export default function LoginScreen({navigation, route}) {
             params: {
               screen: 'Home',
               params: {
-                from: 'abcd',
-                to: 'dcba',
                 access_token:
-                  'eyJjdHkiOiJzdHJpbmdlZS1hcGk7dj0xIiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJqdGkiOiJTS0YwVE1wcTRRWVVZUXAxVFBSUU1sczRVcmd6V2VVSWZ1LTE2MDc0NDM0NzgiLCJpc3MiOiJTS0YwVE1wcTRRWVVZUXAxVFBSUU1sczRVcmd6V2VVSWZ1IiwiZXhwIjoxNjEwMDM1NDc4LCJ1c2VySWQiOiJkY2JhIn0.qER1rrNp52tJudPOI6P5LFZD5eAimSB6rJJjL9rdRvE',
+                  'eyJjdHkiOiJzdHJpbmdlZS1hcGk7dj0xIiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJqdGkiOiJTS0YwVE1wcTRRWVVZUXAxVFBSUU1sczRVcmd6V2VVSWZ1LTE2MDc1OTEwNTAiLCJpc3MiOiJTS0YwVE1wcTRRWVVZUXAxVFBSUU1sczRVcmd6V2VVSWZ1IiwiZXhwIjoxNjEwMTgzMDUwLCJ1c2VySWQiOiJ2Y3hhIn0.YN45opNr3Lj68c-xyOxsQllBkMAoahBYhqZuP7bsKls',
               },
             },
           });

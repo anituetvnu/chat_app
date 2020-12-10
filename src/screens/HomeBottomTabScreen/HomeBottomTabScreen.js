@@ -15,6 +15,7 @@ const routeIcons = {
   Message: 'message-text',
   Search: 'account-box-multiple',
   Account: 'account-settings',
+  Call: 'phone',
 };
 
 const HomeBottomTabScreen = ({navigation, route}) => {
