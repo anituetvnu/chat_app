@@ -113,11 +113,9 @@ const EditScreen = () => {
               sex: sex,
               description: description,
             });
-            console.log('send');
           }}>
           <Text style={styles.submitText}>Lưu</Text>
         </TouchableOpacity>
-        {console.log(typeof birthday)}
       </KeyboardAwareScrollView>
     </View>
   );
