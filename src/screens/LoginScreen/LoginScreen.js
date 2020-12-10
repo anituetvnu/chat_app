@@ -89,7 +89,7 @@ export default function LoginScreen({navigation, route}) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => {
           navigation.navigate('Home', {
             screen: 'Call',
@@ -118,7 +118,7 @@ export default function LoginScreen({navigation, route}) {
           });
         }}>
         <Text>user: dcba</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <KeyboardAwareScrollView
         style={{flex: 1, width: '100%'}}
         keyboardShouldPersistTaps="always">
