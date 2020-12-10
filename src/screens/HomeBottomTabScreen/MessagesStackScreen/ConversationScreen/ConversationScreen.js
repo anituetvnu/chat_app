@@ -238,8 +238,8 @@ const ConversationScreen = ({navigation, route}) => {
               uploadImage();
               sendNotification(
                 chat.token,
-                user.fullName,
-                message ? message : `${user.fullName} đã gửi hình ảnh`,
+                user.fullName + ' đã gửi tin nhắn',
+                message ? message : `hình ảnh`,
               );
             }}>
             <Ionicons name="send" style={styles.linkButton} />

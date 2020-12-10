@@ -41,7 +41,12 @@ class HomeScreen extends Component {
   componentWillMount() {}
 
   async componentDidMount() {
-    await fetch('https://get-access-token-api.herokuapp.com/?userid=dccm')
+    console.log(this.props.route.params.name);
+    const {name} = this.props.route.params;
+    const url = 'https://get-access-token-api.herokuapp.com/?userid=' + name;
+    console.log(url);
+    // console.log('user', user);
+    await fetch(url)
       .then((response) => response.json())
       .then(async (data) => {
         await this.refs.client.connect(data.token);
@@ -173,9 +178,9 @@ class HomeScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
+        {/* <Text style={styles.welcome}>
           React Native wrapper for Stringee mobile SDK!
-        </Text>
+        </Text> */}
 
         <Text style={styles.info}>Logged in as: {this.state.myUserId}</Text>
 

@@ -5,7 +5,6 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import MessagesStackScreen from './MessagesStackScreen/MessagesStackScreen';
 import SearchScreen from './SearchScreen/SearchScreen';
 import AccountStackScreen from './AccountStackScreen/AccountStackScreen';
-import CallStackScreen from './CallStackScreen/CallStackScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -51,7 +50,6 @@ const HomeBottomTabScreen = ({navigation, route}) => {
         component={AccountStackScreen}
         options={{headerShown: false}}
       />
-      <Tab.Screen name="Call" component={CallStackScreen} />
     </Tab.Navigator>
   );
 };

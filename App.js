@@ -25,33 +25,33 @@ export default function App() {
     return unsubscribe;
   }, []);
 
-  useEffect(() => {
-    const FIREBASE_API_KEY =
-      'AAAAErsIZ9o:APA91bGQvDAIofTk-JJnvBaCYGicl9CTCGhWmUgXuvbBpBTR5UGtG44cwacAI2vAAA10i7QHIhi0x6hk3lW3VG8TUic7mJoBpPNBQK9sEoYz_7DHrSgmMFvO33AaTrWh9D-GRbPOPbCp';
-    const message = JSON.stringify({
-      registration_ids: [
-        'cRoTWZruRUCkEJ7zOvsM3r:APA91bFbzrIlR-bgnXYYL0Sg7pP41h5AomAw4WGp90dT4zHrFONOsg1jaT-RG49KciuYI2uKsrqnYc2oMLmwST3ciT2iBW0p2_VtQj2fob0wnGFDrc6oGpaMw-8am3_enVoXiZICnlcN',
-      ],
-      notification: {
-        title: 'FCM Message',
-        body: 'This is an FCM notification message!',
-      },
-    });
-    const requestOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'key=' + FIREBASE_API_KEY,
-      },
-      body: message,
-    };
-    fetch('https://fcm.googleapis.com/fcm/send', requestOptions)
-      .then((response) => response.json())
-      .then((data) => console.log('data: ', data))
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   const FIREBASE_API_KEY =
+  //     'AAAAErsIZ9o:APA91bGQvDAIofTk-JJnvBaCYGicl9CTCGhWmUgXuvbBpBTR5UGtG44cwacAI2vAAA10i7QHIhi0x6hk3lW3VG8TUic7mJoBpPNBQK9sEoYz_7DHrSgmMFvO33AaTrWh9D-GRbPOPbCp';
+  //   const message = JSON.stringify({
+  //     registration_ids: [
+  //       'cRoTWZruRUCkEJ7zOvsM3r:APA91bFbzrIlR-bgnXYYL0Sg7pP41h5AomAw4WGp90dT4zHrFONOsg1jaT-RG49KciuYI2uKsrqnYc2oMLmwST3ciT2iBW0p2_VtQj2fob0wnGFDrc6oGpaMw-8am3_enVoXiZICnlcN',
+  //     ],
+  //     notification: {
+  //       title: 'FCM Message',
+  //       body: 'This is an FCM notification message!',
+  //     },
+  //   });
+  //   const requestOptions = {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Authorization: 'key=' + FIREBASE_API_KEY,
+  //     },
+  //     body: message,
+  //   };
+  //   fetch('https://fcm.googleapis.com/fcm/send', requestOptions)
+  //     .then((response) => response.json())
+  //     .then((data) => console.log('data: ', data))
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, []);
 
   return (
     <Provider store={store}>
