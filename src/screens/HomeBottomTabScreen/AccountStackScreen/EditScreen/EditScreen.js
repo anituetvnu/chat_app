@@ -83,7 +83,7 @@ const EditScreen = () => {
         <View style={[styles.input, {marginBottom: 20}]}>
           <Picker
             style={{height: 50}}
-            // selectedValue={}
+            selectedValue={sex}
             onValueChange={(itemValue, itemIndex) => {
               setSex(itemValue);
               console.log(itemValue);
